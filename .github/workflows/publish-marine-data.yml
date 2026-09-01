@@ -1,0 +1,46 @@
+name: Publish marine data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pipeline
+    env:
+      COPERNICUSMARINE_SERVICE_USERNAME: ${{ secrets.COPERNICUSMARINE_SERVICE_USERNAME }}
+      COPERNICUSMARINE_SERVICE_PASSWORD: ${{ secrets.COPERNICUSMARINE_SERVICE_PASSWORD }}
+      TIDEGLASS_CONTACT: ${{ secrets.TIDEGLASS_CONTACT }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: pipeline/requirements.txt
+      - run: pip install -r requirements.txt
+      - uses: actions/cache@v4
+        id: tide-model
+        with:
+          path: pipeline/tide_models/EOT20
+          key: eot20-2021-v1
+      - if: steps.tide-model.outputs.cache-hit != 'true'
+        env:
+          EOT20_DOWNLOAD_URL: ${{ secrets.EOT20_DOWNLOAD_URL }}
+        run: |
+          test -n "$EOT20_DOWNLOAD_URL"
+          curl --fail --location "$EOT20_DOWNLOAD_URL" --output /tmp/eot20.zip
+          mkdir -p tide_models/EOT20
+          unzip -q /tmp/eot20.zip -d tide_models/EOT20
+      - run: pytest -q
+      - run: python -m tideglass_pipeline.generate --output public --model-dir tide_models
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: pipeline/public

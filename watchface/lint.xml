@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!-- WFF resources are loaded by the Wear OS renderer, not Android code. -->
+    <issue id="UnusedResources" severity="ignore" />
+    <!-- Pinned to the Android Wear OS sample toolchain used for this prototype. -->
+    <issue id="AndroidGradlePluginVersion" severity="ignore" />
+</lint>
+

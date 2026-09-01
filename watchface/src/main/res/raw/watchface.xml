@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WatchFace width="450" height="450">
+    <Metadata key="CLOCK_TYPE" value="DIGITAL" />
+    <Metadata key="PREVIEW_TIME" value="10:09:00" />
+
+    <Scene backgroundColor="#FF050707">
+        <!-- Interactive face -->
+        <Group x="0" y="0" width="450" height="450" alpha="255" name="interactive_face">
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+
+            <!-- Spot -->
+            <PartText x="100" y="18" width="250" height="34">
+                <Text align="CENTER">
+                    <Font family="SYNC_TO_DEVICE" size="24" weight="MEDIUM" color="#FF74D9D4">MUNDAKA</Font>
+                </Text>
+            </PartText>
+
+            <!-- Main time -->
+            <DigitalClock x="28" y="48" width="394" height="88">
+                <TimeText format="hh:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER" x="0" y="0" width="394" height="88">
+                    <Font family="SYNC_TO_DEVICE" size="92" weight="MEDIUM" color="#FFF2EFE7" />
+                </TimeText>
+            </DigitalClock>
+
+            <!-- Tide instrument panel -->
+            <PartDraw x="30" y="143" width="390" height="148">
+                <RoundRectangle x="0" y="0" width="390" height="148" cornerRadiusX="18" cornerRadiusY="18">
+                    <Stroke thickness="2" color="#FF3A4240" />
+                </RoundRectangle>
+                <Rectangle x="194" y="18" width="2" height="58">
+                    <Fill color="#FF3A4240" />
+                </Rectangle>
+                <Rectangle x="20" y="83" width="350" height="1">
+                    <Fill color="#FF29302F" />
+                </Rectangle>
+            </PartDraw>
+
+            <PartText x="50" y="153" width="120" height="25">
+                <Text align="START">
+                    <Font family="SYNC_TO_DEVICE" size="18" weight="MEDIUM" color="#FF74D9D4">label_tide</Font>
+                </Text>
+            </PartText>
+            <PartText x="48" y="174" width="150" height="54">
+                <Text align="START">
+                    <Font family="SYNC_TO_DEVICE" size="48" weight="MEDIUM" color="#FFF2EFE7">1.4m ↑</Font>
+                </Text>
+            </PartText>
+            <PartText x="230" y="153" width="160" height="25">
+                <Text align="START">
+                    <Font family="SYNC_TO_DEVICE" size="18" weight="MEDIUM" color="#FF74D9D4">label_next_high</Font>
+                </Text>
+            </PartText>
+            <PartText x="230" y="180" width="160" height="43">
+                <Text align="START">
+                    <Font family="SYNC_TO_DEVICE" size="38" weight="MEDIUM" color="#FFF2EFE7">12:42</Font>
+                </Text>
+            </PartText>
+
+            <!-- Twelve-hour tide histogram; sparse, high-contrast and cheap to render. -->
+            <PartDraw x="52" y="232" width="346" height="48">
+                <Rectangle x="0" y="28" width="16" height="20"><Fill color="#FF74D9D4" /></Rectangle>
+                <Rectangle x="28" y="21" width="16" height="27"><Fill color="#FF74D9D4" /></Rectangle>
+                <Rectangle x="56" y="13" width="16" height="35"><Fill color="#FF74D9D4" /></Rectangle>
+                <Rectangle x="84" y="5" width="16" height="43"><Fill color="#FF74D9D4" /></Rectangle>
+                <Rectangle x="112" y="0" width="16" height="48"><Fill color="#FF74D9D4" /></Rectangle>
+                <Rectangle x="140" y="4" width="16" height="44"><Fill color="#FF74D9D4" /></Rectangle>
+                <Rectangle x="168" y="11" width="16" height="37"><Fill color="#FF74D9D4" /></Rectangle>
+                <Rectangle x="196" y="20" width="16" height="28"><Fill color="#FF74D9D4" /></Rectangle>
+                <Rectangle x="224" y="29" width="16" height="19"><Fill color="#FF74D9D4" /></Rectangle>
+                <Rectangle x="252" y="35" width="16" height="13"><Fill color="#FF74D9D4" /></Rectangle>
+                <Rectangle x="280" y="31" width="16" height="17"><Fill color="#FF74D9D4" /></Rectangle>
+                <Rectangle x="308" y="23" width="16" height="25"><Fill color="#FF74D9D4" /></Rectangle>
+                <Rectangle x="336" y="14" width="10" height="34"><Fill color="#FF74D9D4" /></Rectangle>
+            </PartDraw>
+            <PartDraw x="178" y="226" width="2" height="58">
+                <Rectangle x="0" y="0" width="2" height="58"><Fill color="#FFFF756B" /></Rectangle>
+            </PartDraw>
+            <PartText x="153" y="267" width="52" height="20">
+                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="14" weight="MEDIUM" color="#FFFF756B">label_now</Font></Text>
+            </PartText>
+
+            <!-- Surf and wind summary -->
+            <PartDraw x="224" y="311" width="2" height="67">
+                <Rectangle x="0" y="0" width="2" height="67"><Fill color="#FF3A4240" /></Rectangle>
+            </PartDraw>
+            <PartText x="46" y="302" width="165" height="25">
+                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="18" weight="MEDIUM" color="#FF74D9D4">label_surf</Font></Text>
+            </PartText>
+            <PartText x="42" y="328" width="172" height="48">
+                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="34" weight="MEDIUM" color="#FFF2EFE7">1.6m 12s NW</Font></Text>
+            </PartText>
+            <PartText x="239" y="302" width="165" height="25">
+                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="18" weight="MEDIUM" color="#FF74D9D4">label_wind</Font></Text>
+            </PartText>
+            <PartText x="236" y="328" width="172" height="48">
+                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="34" weight="MEDIUM" color="#FFF2EFE7">8kn E</Font></Text>
+            </PartText>
+
+            <PartText x="110" y="389" width="230" height="35">
+                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="22" weight="MEDIUM" color="#FF74D9D4">label_water_demo</Font></Text>
+            </PartText>
+        </Group>
+
+        <!-- Editable slots. Demo values above remain as graceful fallback. -->
+            <ComplicationSlot x="100" y="18" width="250" height="34" slotId="1" displayName="spot_slot_label" supportedTypes="SHORT_TEXT EMPTY">
+                <BoundingRoundBox x="0" y="0" width="250" height="34" cornerRadius="12" outlinePadding="2" />
+                <Complication type="SHORT_TEXT">
+                    <PartDraw x="0" y="0" width="250" height="34"><Rectangle x="0" y="0" width="250" height="34"><Fill color="#FF050707" /></Rectangle></PartDraw>
+                    <PartText x="0" y="0" width="250" height="34"><Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="24" weight="MEDIUM" color="#FF74D9D4"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text></PartText>
+                </Complication>
+            </ComplicationSlot>
+
+            <ComplicationSlot x="48" y="174" width="150" height="54" slotId="2" displayName="tide_slot_label" supportedTypes="SHORT_TEXT EMPTY">
+                <BoundingRoundBox x="0" y="0" width="150" height="54" cornerRadius="10" outlinePadding="2" />
+                <Complication type="SHORT_TEXT">
+                    <PartDraw x="0" y="0" width="150" height="54"><Rectangle x="0" y="0" width="150" height="54"><Fill color="#FF050707" /></Rectangle></PartDraw>
+                    <PartText x="0" y="0" width="150" height="54"><Text align="START"><Font family="SYNC_TO_DEVICE" size="40" weight="MEDIUM" color="#FFF2EFE7"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text></PartText>
+                </Complication>
+            </ComplicationSlot>
+
+            <ComplicationSlot x="230" y="180" width="160" height="43" slotId="3" displayName="next_tide_slot_label" supportedTypes="SHORT_TEXT EMPTY">
+                <BoundingRoundBox x="0" y="0" width="160" height="43" cornerRadius="10" outlinePadding="2" />
+                <Complication type="SHORT_TEXT">
+                    <PartDraw x="0" y="0" width="160" height="43"><Rectangle x="0" y="0" width="160" height="43"><Fill color="#FF050707" /></Rectangle></PartDraw>
+                    <PartText x="0" y="0" width="160" height="43"><Text align="START"><Font family="SYNC_TO_DEVICE" size="34" weight="MEDIUM" color="#FFF2EFE7"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text></PartText>
+                </Complication>
+            </ComplicationSlot>
+
+            <ComplicationSlot x="42" y="328" width="172" height="48" slotId="4" displayName="surf_slot_label" supportedTypes="SHORT_TEXT EMPTY">
+                <BoundingRoundBox x="0" y="0" width="172" height="48" cornerRadius="10" outlinePadding="2" />
+                <Complication type="SHORT_TEXT">
+                    <PartDraw x="0" y="0" width="172" height="48"><Rectangle x="0" y="0" width="172" height="48"><Fill color="#FF050707" /></Rectangle></PartDraw>
+                    <PartText x="0" y="0" width="172" height="48"><Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="30" weight="MEDIUM" color="#FFF2EFE7"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text></PartText>
+                </Complication>
+            </ComplicationSlot>
+
+            <ComplicationSlot x="236" y="328" width="172" height="48" slotId="5" displayName="wind_slot_label" supportedTypes="SHORT_TEXT EMPTY">
+                <BoundingRoundBox x="0" y="0" width="172" height="48" cornerRadius="10" outlinePadding="2" />
+                <Complication type="SHORT_TEXT">
+                    <PartDraw x="0" y="0" width="172" height="48"><Rectangle x="0" y="0" width="172" height="48"><Fill color="#FF050707" /></Rectangle></PartDraw>
+                    <PartText x="0" y="0" width="172" height="48"><Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="30" weight="MEDIUM" color="#FFF2EFE7"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text></PartText>
+                </Complication>
+            </ComplicationSlot>
+        <!-- Burn-in-friendly ambient face. -->
+        <Group x="0" y="0" width="450" height="450" alpha="0" name="ambient_face">
+            <Variant mode="AMBIENT" target="alpha" value="255" />
+            <DigitalClock x="28" y="142" width="394" height="96">
+                <TimeText format="hh:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER" x="0" y="0" width="394" height="96">
+                    <Font family="SYNC_TO_DEVICE" size="92" weight="THIN" color="#FFF2EFE7" />
+                </TimeText>
+            </DigitalClock>
+            <PartText x="110" y="247" width="230" height="38">
+                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="24" weight="NORMAL" color="#FF74D9D4">1.4m ↑ · 12:42</Font></Text>
+            </PartText>
+        </Group>
+    </Scene>
+</WatchFace>

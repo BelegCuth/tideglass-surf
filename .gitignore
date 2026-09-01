@@ -1,0 +1,12 @@
+.gradle/
+.idea/
+local.properties
+**/build/
+*.iml
+*.jks
+*.keystore
+pipeline/public/
+pipeline/public-demo/
+pipeline/tide_models/
+**/__pycache__/
+.pytest_cache/

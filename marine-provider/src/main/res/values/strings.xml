@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tideglass Data</string>
+    <string name="provider_spot">Tideglass · Surf spot</string>
+    <string name="provider_tide">Tideglass · Current tide</string>
+    <string name="provider_next_tide">Tideglass · Next tide</string>
+    <string name="provider_surf">Tideglass · Surf conditions</string>
+    <string name="provider_wind">Tideglass · Wind</string>
+    <string name="screen_title">TIDEGLASS</string>
+    <string name="screen_subtitle">Live surf data</string>
+    <string name="status_ready">DATA READY</string>
+    <string name="status_loading">UPDATING</string>
+    <string name="status_error">NO CONNECTION</string>
+    <string name="action_location">Use my location</string>
+    <string name="action_refresh">Refresh now</string>
+    <string name="action_retry">Try again</string>
+    <string name="last_updated">Updated %1$s</string>
+    <string name="accuracy_notice">Forecast only · Not for navigation</string>
+    <string name="location_saved">Nearest spot selected</string>
+    <string name="location_failed">Location unavailable</string>
+    <string name="permission_denied">Location permission was not granted</string>
+    <string name="offline">OFFLINE</string>
+    <string name="metric_tide">TIDE</string>
+    <string name="metric_next">NEXT</string>
+    <string name="metric_surf">SURF</string>
+    <string name="metric_wind">WIND</string>
+    <string name="metric_water">WATER</string>
+    <string name="tide_high">HIGH</string>
+    <string name="tide_low">LOW</string>
+    <string name="trend_rising">rising</string>
+    <string name="trend_falling">falling</string>
+    <string name="trend_steady">steady</string>
+    <string name="attribution_short">EOT20 · Copernicus Marine · MET Norway</string>
+    <string name="description_spot">Selected surf spot: %1$s</string>
+    <string name="description_tide">Current tide %1$s metres, %2$s</string>
+    <string name="description_next_tide">Next %1$s tide at %2$s</string>
+    <plurals name="description_swell">
+        <item quantity="one">Swell %1$s metres, %2$d second, from %3$s</item>
+        <item quantity="other">Swell %1$s metres, %2$d seconds, from %3$s</item>
+    </plurals>
+    <plurals name="description_wind">
+        <item quantity="one">Wind %1$d knot from %2$s</item>
+        <item quantity="other">Wind %1$d knots from %2$s</item>
+    </plurals>
+    <string name="unknown">unknown</string>
+    <string name="tide_high_short">H</string>
+    <string name="tide_low_short">L</string>
+</resources>

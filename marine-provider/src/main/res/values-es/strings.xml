@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Datos Tideglass</string>
+    <string name="provider_spot">Tideglass · Spot de surf</string>
+    <string name="provider_tide">Tideglass · Marea actual</string>
+    <string name="provider_next_tide">Tideglass · Próxima marea</string>
+    <string name="provider_surf">Tideglass · Condiciones de surf</string>
+    <string name="provider_wind">Tideglass · Viento</string>
+    <string name="screen_title">TIDEGLASS</string>
+    <string name="screen_subtitle">Datos de surf en directo</string>
+    <string name="status_ready">DATOS LISTOS</string>
+    <string name="status_loading">ACTUALIZANDO</string>
+    <string name="status_error">SIN CONEXIÓN</string>
+    <string name="action_location">Usar mi ubicación</string>
+    <string name="action_refresh">Actualizar ahora</string>
+    <string name="action_retry">Reintentar</string>
+    <string name="last_updated">Actualizado %1$s</string>
+    <string name="accuracy_notice">Solo previsión · No usar para navegación</string>
+    <string name="location_saved">Spot cercano seleccionado</string>
+    <string name="location_failed">Ubicación no disponible</string>
+    <string name="permission_denied">No se concedió el permiso de ubicación</string>
+    <string name="offline">SIN CONEXIÓN</string>
+    <string name="metric_tide">MAREA</string>
+    <string name="metric_next">PRÓXIMA</string>
+    <string name="metric_surf">OLEAJE</string>
+    <string name="metric_wind">VIENTO</string>
+    <string name="metric_water">AGUA</string>
+    <string name="tide_high">PLEAMAR</string>
+    <string name="tide_low">BAJAMAR</string>
+    <string name="trend_rising">subiendo</string>
+    <string name="trend_falling">bajando</string>
+    <string name="trend_steady">estable</string>
+    <string name="attribution_short">EOT20 · Copernicus Marine · MET Norway</string>
+    <string name="description_spot">Spot de surf seleccionado: %1$s</string>
+    <string name="description_tide">Marea actual %1$s metros, %2$s</string>
+    <string name="description_next_tide">Próxima %1$s a las %2$s</string>
+    <plurals name="description_swell">
+        <item quantity="one">Mar de fondo de %1$s metros, %2$d segundo, desde %3$s</item>
+        <item quantity="many">Mar de fondo de %1$s metros, %2$d segundos, desde %3$s</item>
+        <item quantity="other">Mar de fondo de %1$s metros, %2$d segundos, desde %3$s</item>
+    </plurals>
+    <plurals name="description_wind">
+        <item quantity="one">Viento de %1$d nudo desde %2$s</item>
+        <item quantity="many">Viento de %1$d nudos desde %2$s</item>
+        <item quantity="other">Viento de %1$d nudos desde %2$s</item>
+    </plurals>
+    <string name="unknown">desconocida</string>
+    <string name="tide_high_short">P</string>
+    <string name="tide_low_short">B</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_face_name">Tideglass Surf</string>
+    <string name="spot_slot_label">Spot de surf</string>
+    <string name="tide_slot_label">Marea actual</string>
+    <string name="next_tide_slot_label">Próxima marea</string>
+    <string name="surf_slot_label">Condiciones de surf</string>
+    <string name="wind_slot_label">Viento</string>
+    <string name="label_tide">MAREA</string>
+    <string name="label_next_high">PRÓXIMA PLEAMAR</string>
+    <string name="label_now">AHORA</string>
+    <string name="label_surf">OLEAJE</string>
+    <string name="label_wind">VIENTO</string>
+    <string name="label_water_demo">AGUA 19 C</string>
+</resources>

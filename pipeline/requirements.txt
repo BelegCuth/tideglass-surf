@@ -1,0 +1,6 @@
+copernicusmarine==2.4.1
+eo-tides==0.10.4
+pandas==3.0.5
+requests==2.34.2
+xarray==2026.7.0
+pytest==9.1.1
