@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: "17 */6 * * *"
 
+concurrency:
+  group: tideglass-production-data
+  cancel-in-progress: false
+
 permissions:
   contents: read
   deployments: write
@@ -12,13 +16,14 @@ permissions:
 jobs:
   generate:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     defaults:
       run:
         working-directory: pipeline
     env:
       COPERNICUSMARINE_SERVICE_USERNAME: ${{ secrets.COPERNICUSMARINE_SERVICE_USERNAME }}
       COPERNICUSMARINE_SERVICE_PASSWORD: ${{ secrets.COPERNICUSMARINE_SERVICE_PASSWORD }}
-      TIDEGLASS_CONTACT: ${{ secrets.TIDEGLASS_CONTACT }}
+      TIDEGLASS_CONTACT: https://tideglass.me
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -27,21 +32,32 @@ jobs:
           cache: pip
           cache-dependency-path: pipeline/requirements.txt
       - run: pip install -r requirements.txt
+      - name: Validate production credentials
+        run: |
+          test -n "$COPERNICUSMARINE_SERVICE_USERNAME"
+          test -n "$COPERNICUSMARINE_SERVICE_PASSWORD"
+          copernicusmarine login --check-credentials-valid
       - uses: actions/cache@v4
         id: tide-model
         with:
           path: pipeline/tide_models/EOT20
           key: eot20-2021-v1
       - if: steps.tide-model.outputs.cache-hit != 'true'
-        env:
-          EOT20_DOWNLOAD_URL: ${{ secrets.EOT20_DOWNLOAD_URL }}
+        name: Download the official EOT20 model
         run: |
-          test -n "$EOT20_DOWNLOAD_URL"
-          curl --fail --location "$EOT20_DOWNLOAD_URL" --output /tmp/eot20.zip
+          curl --fail --location --retry 4 --retry-all-errors \
+            "https://www.seanoe.org/data/00683/79489/data/85762.zip" \
+            --output /tmp/eot20.zip
           mkdir -p tide_models/EOT20
           unzip -q /tmp/eot20.zip -d tide_models/EOT20
+          nested_archive="$(find tide_models/EOT20 -type f -name ocean_tides.zip -print -quit)"
+          test -n "$nested_archive"
+          unzip -q "$nested_archive" -d tide_models/EOT20
+          test -f tide_models/EOT20/ocean_tides/M2_ocean_eot20.nc
+          rm -f "$nested_archive" /tmp/eot20.zip
       - run: pytest -q
       - run: python -m tideglass_pipeline.generate --output public --model-dir tide_models
+      - run: python -m tideglass_pipeline.validate --output public
       - name: Deploy marine data to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:

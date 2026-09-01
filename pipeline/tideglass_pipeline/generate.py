@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from .contract import Spot, TideReading, WaveReading, WindReading, document, iso
-from .tides import eot20_tide
+from .tides import eot20_tides
 from .waves import copernicus_wave
 from .wind import met_norway_wind
 
@@ -28,10 +28,13 @@ def generate(spots_path: Path, output: Path, model_dir: Path, demo: bool = False
     destination = output / "v1" / "spots"
     destination.mkdir(parents=True, exist_ok=True)
     spots = load_spots(spots_path)
+    tides = {} if demo else eot20_tides(spots, now, model_dir)
     index = []
     for spot in spots:
-        tide, wave, wind = demo_readings(spot, now) if demo else (
-            eot20_tide(spot, now, model_dir), copernicus_wave(spot, now), met_norway_wind(spot, now)
+        tide, wave, wind = (
+            demo_readings(spot, now)
+            if demo
+            else (tides[spot.id], copernicus_wave(spot, now), met_norway_wind(spot, now))
         )
         payload = document(spot, tide, wave, wind, now)
         target = destination / f"{spot.id}.json"

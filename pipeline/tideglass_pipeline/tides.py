@@ -22,18 +22,31 @@ def _analyse(times: list[datetime], heights: list[float], now: datetime) -> Tide
 
 
 def eot20_tide(spot: Spot, now: datetime, model_dir: Path) -> TideReading:
+    return eot20_tides([spot], now, model_dir)[spot.id]
+
+
+def eot20_tides(spots: list[Spot], now: datetime, model_dir: Path) -> dict[str, TideReading]:
     import pandas as pd
     from eo_tides.model import model_tides
 
     start = now.astimezone(timezone.utc) - timedelta(hours=1)
     times = pd.date_range(start=start, end=start + timedelta(hours=32), freq="15min", tz="UTC")
     predicted = model_tides(
-        x=spot.longitude,
-        y=spot.latitude,
+        x=[spot.longitude for spot in spots],
+        y=[spot.latitude for spot in spots],
         time=times.tz_localize(None),
         model="EOT20",
         directory=str(model_dir),
-    )
-    values = [float(value) for value in predicted.squeeze().values]
+        mode="one-to-many",
+        parallel=False,
+    ).reset_index()
+    predicted["time"] = pd.to_datetime(predicted["time"], utc=True)
     python_times = [stamp.to_pydatetime() for stamp in times]
-    return _analyse(python_times, values, now.astimezone(timezone.utc))
+    readings = {}
+    for spot in spots:
+        rows = predicted[(predicted["x"] == spot.longitude) & (predicted["y"] == spot.latitude)].sort_values("time")
+        if len(rows) != len(times):
+            raise ValueError(f"Incomplete EOT20 tide series for {spot.id}")
+        values = [float(value) for value in rows["tide_height"]]
+        readings[spot.id] = _analyse(python_times, values, now.astimezone(timezone.utc))
+    return readings

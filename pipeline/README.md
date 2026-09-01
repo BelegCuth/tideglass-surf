@@ -4,9 +4,9 @@ The publisher creates language-neutral JSON. English and Spanish belong in the c
 
 ## Sources and commercial use
 
-- **Tides:** EOT20 harmonic model, CC BY 4.0. Tide heights are predicted locally from its NetCDF constituents.
-- **Waves:** Copernicus Marine `GLOBAL_ANALYSISFORECAST_WAV_001_027`, dataset `cmems_mod_glo_wav_anfc_0.083deg_PT3H-i`.
-- **Wind:** MET Norway Locationforecast 2.0 compact endpoint.
+- **Tides:** EOT20 harmonic model, CC BY 4.0. Tide heights are predicted locally from its NetCDF constituents. The workflow downloads release file `85762.zip` from the official SEANOE record `10.17882/79489` and caches the extracted model.
+- **Waves:** Copernicus Marine `GLOBAL_ANALYSISFORECAST_WAV_001_027`, dataset `cmems_mod_glo_wav_anfc_0.083deg_PT3H-i`. Access and commercial reuse are free with the required credit; a free account is still required for automated downloads.
+- **Wind:** MET Norway Locationforecast 2.0 compact endpoint. Its Creative Commons data permits commercial use; Tideglass identifies itself with its public website in the User-Agent.
 
 Keep the three attributions visible in the app/store listing and comply with provider caching and identification rules. Source forecasts are not safety- or navigation-grade.
 

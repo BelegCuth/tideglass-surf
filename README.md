@@ -34,7 +34,7 @@ Production generation needs:
 
 - EOT20 NetCDF files extracted under `pipeline/tide_models/EOT20`;
 - `COPERNICUSMARINE_SERVICE_USERNAME` and `COPERNICUSMARINE_SERVICE_PASSWORD`;
-- `TIDEGLASS_CONTACT`, an email or public contact URL required for the MET Norway User-Agent.
+- the MET Norway User-Agent identifies Tideglass through `https://tideglass.me`.
 
 Then run:
 
@@ -42,7 +42,7 @@ Then run:
 python -m tideglass_pipeline.generate --output public --model-dir tide_models
 ```
 
-The workflow at `.github/workflows/publish-marine-data.yml` performs the same job every six hours and uploads `pipeline/public` as a Pages-compatible artifact. Configure its four secrets, including `EOT20_DOWNLOAD_URL`. Enabling deployment remains an explicit repository-owner step.
+The workflow at `.github/workflows/publish-marine-data.yml` performs the same job every six hours and deploys `pipeline/public` to Cloudflare Pages. Configure only the two Copernicus credentials as GitHub Actions secrets. The workflow downloads and caches the official EOT20 release automatically.
 
 ## Platform scope
 
