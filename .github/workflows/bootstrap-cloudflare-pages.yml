@@ -30,5 +30,8 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: pipeline
-          command: pages deploy public --project-name=tideglass-data --branch=main
+          wranglerVersion: "4"
+          command: |
+            pages project create tideglass-data --production-branch main
+            pages deploy public --project-name=tideglass-data --branch=main --commit-dirty=true
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
