@@ -7,6 +7,7 @@ local.properties
 *.keystore
 pipeline/public/
 pipeline/public-demo/
+pipeline/public-demo-*.zip
 pipeline/tide_models/
 **/__pycache__/
 .pytest_cache/
