@@ -37,7 +37,8 @@ jobs:
           test -n "$COPERNICUSMARINE_SERVICE_USERNAME"
           test -n "$COPERNICUSMARINE_SERVICE_PASSWORD"
           copernicusmarine login --check-credentials-valid
-      - uses: actions/cache@v4
+      - run: python -m pytest -q
+      - uses: actions/cache/restore@v4
         id: tide-model
         with:
           path: pipeline/tide_models/EOT20
@@ -55,7 +56,12 @@ jobs:
           unzip -q "$nested_archive" -d tide_models/EOT20
           test -f tide_models/EOT20/ocean_tides/M2_ocean_eot20.nc
           rm -f "$nested_archive" /tmp/eot20.zip
-      - run: pytest -q
+      - if: steps.tide-model.outputs.cache-hit != 'true'
+        name: Cache the extracted EOT20 model
+        uses: actions/cache/save@v4
+        with:
+          path: pipeline/tide_models/EOT20
+          key: ${{ steps.tide-model.outputs.cache-primary-key }}
       - run: python -m tideglass_pipeline.generate --output public --model-dir tide_models
       - run: python -m tideglass_pipeline.validate --output public
       - name: Deploy marine data to Cloudflare Pages
