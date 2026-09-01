@@ -23,8 +23,12 @@ jobs:
             -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
             "${endpoint}")"
 
-          if jq -e '.result[]? | select(.name == "data.tideglass.me")' <<<"${domains}" >/dev/null; then
-            echo "Custom domain is already associated."
+          existing="$(jq -c '.result[]? | select(.name == "data.tideglass.me")' <<<"${domains}")"
+          if [[ -n "${existing}" ]]; then
+            status="$(jq -r '.status' <<<"${existing}")"
+            validation="$(jq -r '.validation_data.status' <<<"${existing}")"
+            verification="$(jq -r '.verification_data.status' <<<"${existing}")"
+            echo "Custom domain is already associated: status=${status}, validation=${validation}, verification=${verification}."
             exit 0
           fi
 
