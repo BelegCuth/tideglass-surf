@@ -7,6 +7,7 @@ from tideglass_pipeline.contract import Spot, TideReading, WaveReading, WindRead
 from tideglass_pipeline.generate import generate, load_spots
 from tideglass_pipeline.tides import _analyse
 from tideglass_pipeline.validate import validate_public
+from tideglass_pipeline.waves import _first_value, _select_nearest_sea_row
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -51,3 +52,22 @@ def test_android_and_pipeline_catalogues_have_same_ids():
     android_ids = set(re.findall(r'SurfSpot\("([a-z0-9-]+)"', kotlin))
     pipeline_ids = {spot.id for spot in load_spots(ROOT / "pipeline" / "spots.json")}
     assert android_ids == pipeline_ids
+
+
+def test_wave_selection_skips_masked_coastal_cell():
+    import pandas as pd
+
+    now = datetime(2026, 9, 1, 12, tzinfo=timezone.utc)
+    spot = Spot("mundaka", "MUNDAKA", 43.4075, -2.6988, "Spain")
+    frame = pd.DataFrame(
+        [
+            {"time": now, "latitude": 43.40, "longitude": -2.70, "VHM0": None, "VTPK": None, "VMDR": None},
+            {"time": now, "latitude": 43.48, "longitude": -2.70, "VHM0": 1.8, "VTPK": 11.0, "VMDR": 305.0},
+            {"time": now + timedelta(hours=3), "latitude": 43.42, "longitude": -2.70, "VHM0": 2.2, "VTPK": 12.0, "VMDR": 310.0},
+        ]
+    )
+
+    row, time_column = _select_nearest_sea_row(frame, spot, now)
+
+    assert row[time_column].to_pydatetime() == now
+    assert _first_value(row, "VHM0_SW1", "VHM0") == 1.8
