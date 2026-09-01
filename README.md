@@ -16,7 +16,7 @@ Install Android SDK 36 and JDK 17+ (JDK 21 is supported), then set the HTTPS roo
 
 ```powershell
 .\gradlew.bat :watchface:bundleRelease :marine-provider:bundleRelease `
-  -Ptideglass.dataBaseUrl=https://data.example.com
+  -Ptideglass.dataBaseUrl=https://data.tideglass.me
 ```
 
 Install both packages on Wear OS 5+, open **Tideglass Data**, select location and assign the five Tideglass complications. Release bundles are still debug-signed; replace that signing configuration before Play Console upload.
