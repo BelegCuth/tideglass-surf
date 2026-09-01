@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  deployments: write
 
 jobs:
   generate:
@@ -41,6 +42,12 @@ jobs:
           unzip -q /tmp/eot20.zip -d tide_models/EOT20
       - run: pytest -q
       - run: python -m tideglass_pipeline.generate --output public --model-dir tide_models
-      - uses: actions/upload-pages-artifact@v3
+      - name: Deploy marine data to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
-          path: pipeline/public
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: pipeline
+          wranglerVersion: "4"
+          command: pages deploy public --project-name=tideglass-data --branch=main --commit-dirty=true
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
