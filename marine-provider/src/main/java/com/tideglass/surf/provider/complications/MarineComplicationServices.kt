@@ -72,8 +72,8 @@ class SpotComplicationService : BaseMarineComplicationService() {
 }
 
 class TideComplicationService : BaseMarineComplicationService() {
-    override val previewValue = "62%↑"
-    override fun previewDescription() = getString(R.string.description_tide, "62", getString(R.string.trend_rising))
+    override val previewValue = "79%↑"
+    override fun previewDescription() = getString(R.string.description_tide, "79", getString(R.string.trend_rising))
     override fun value(snapshot: MarineSnapshot): String {
         val arrow = when (snapshot.tideTrend) {
             TideTrend.RISING -> "↑"
@@ -94,8 +94,8 @@ class TideComplicationService : BaseMarineComplicationService() {
 }
 
 class NextTideComplicationService : BaseMarineComplicationService() {
-    override val previewValue = "H12:42"
-    override fun previewDescription() = getString(R.string.description_next_tide, getString(R.string.tide_high), "12:42")
+    override val previewValue = "H20:38"
+    override fun previewDescription() = getString(R.string.description_next_tide, getString(R.string.tide_high), "20:38")
     override fun value(snapshot: MarineSnapshot): String {
         val prefix = getString(if (snapshot.nextTideType == TideEventType.HIGH) R.string.tide_high_short else R.string.tide_low_short)
         return snapshot.nextTideEpochMillis?.let { "$prefix${formatTime(it)}" } ?: "--"
@@ -113,8 +113,8 @@ class NextTideComplicationService : BaseMarineComplicationService() {
 }
 
 class SurfComplicationService : BaseMarineComplicationService() {
-    override val previewValue = "1.6·12 NW"
-    override fun previewDescription() = resources.getQuantityString(R.plurals.description_swell, 12, "1.6", 12, "NW")
+    override val previewValue = "0.4·6 NW"
+    override fun previewDescription() = resources.getQuantityString(R.plurals.description_swell, 6, "0.4", 6, "NW")
     override fun value(snapshot: MarineSnapshot): String =
         "${snapshot.swellHeightMeters.oneDecimal()}·${snapshot.swellPeriodSeconds.roundToInt()} ${cardinalDirection(snapshot.swellDirectionDegrees)}"
 
@@ -128,8 +128,8 @@ class SurfComplicationService : BaseMarineComplicationService() {
 }
 
 class WindComplicationService : BaseMarineComplicationService() {
-    override val previewValue = "8kn E"
-    override fun previewDescription() = resources.getQuantityString(R.plurals.description_wind, 8, 8, "E")
+    override val previewValue = "8kn NE"
+    override fun previewDescription() = resources.getQuantityString(R.plurals.description_wind, 8, 8, "NE")
     override fun value(snapshot: MarineSnapshot): String =
         "${snapshot.windSpeedKnots.roundToInt()}kn ${cardinalDirection(snapshot.windDirectionDegrees)}"
 

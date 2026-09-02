@@ -29,7 +29,20 @@ Then run **Build signed Play release** manually. That workflow refuses to build 
 
 - App icon: 512 × 512 PNG for each listing.
 - Feature graphic: 1024 × 500 PNG for each listing.
-- Wear OS screenshots showing interactive, ambient and complication setup states.
+- Localized 1:1 screen-only watch-face candidates are available at
+  `watchface/en-US/screenshots/01-watchface.png` and
+  `watchface/es-ES/screenshots/01-watchface.png`. Compare them with the final
+  on-device rendering before upload; do not present them as device captures.
+- Capture additional Wear OS screenshots showing the real interactive, ambient
+  and complication-setup states on a Wear OS 5+ device.
 - Complete the Data safety form: optional location is processed on-device; the static data host receives standard network request metadata.
 - Complete content rating, ads declaration and target-audience sections.
 - Test both listings together on a Wear OS 5+ physical watch or emulator before production rollout.
+
+## Current device-validation blocker
+
+- The prepared `Tideglass_WearOS5_Round` emulator cannot boot while Intel
+  virtualization is disabled in this PC's firmware. Enable Intel VT-x in BIOS
+  and rerun the AVD, or validate on a physical Wear OS 5+ watch.
+- Xiaomi Watch S1 Active cannot be used for this build because it runs Mi
+  Fitness rather than Wear OS.
