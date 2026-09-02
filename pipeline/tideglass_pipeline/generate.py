@@ -17,7 +17,7 @@ def load_spots(path: Path) -> list[Spot]:
 
 def demo_readings(spot: Spot, now: datetime) -> tuple[TideReading, WaveReading, WindReading]:
     phase = (abs(spot.latitude) + abs(spot.longitude)) % 6
-    tide = TideReading(0.9 + phase / 10, "RISING", "HIGH", now + timedelta(hours=3), 1.8 + phase / 10)
+    tide = TideReading(0.9 + phase / 10, "RISING", "HIGH", now + timedelta(hours=3), 1.8 + phase / 10, 58)
     wave = WaveReading(1.1 + phase / 12, 9 + phase / 2, (spot.longitude + 360) % 360, now)
     wind = WindReading(6 + phase, (spot.longitude + 45 + 360) % 360, now)
     return tide, wave, wind

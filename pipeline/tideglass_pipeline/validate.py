@@ -56,6 +56,9 @@ def validate_public(output: Path, *, now: datetime | None = None, max_age_hours:
             raise ValueError(f"Next tide is outside the expected window for {spot_id}")
 
         _number(payload["tide"]["heightMeters"], f"{spot_id}.tide.heightMeters", -20, 20)
+        _number(payload["tide"]["levelPercent"], f"{spot_id}.tide.levelPercent", 0, 100)
+        if payload["tide"].get("levelReference") != "LOCAL_MODEL_RANGE":
+            raise ValueError(f"Unsupported tide level reference for {spot_id}")
         _number(payload["tide"]["next"]["heightMeters"], f"{spot_id}.tide.next.heightMeters", -20, 20)
         _number(payload["swell"]["heightMeters"], f"{spot_id}.swell.heightMeters", 0, 30)
         _number(payload["swell"]["periodSeconds"], f"{spot_id}.swell.periodSeconds", 0, 40)

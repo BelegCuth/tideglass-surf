@@ -66,15 +66,15 @@ class SpotComplicationService : BaseMarineComplicationService() {
 }
 
 class TideComplicationService : BaseMarineComplicationService() {
-    override val previewValue = "1.4m↑"
-    override fun previewDescription() = getString(R.string.description_tide, "1.4", getString(R.string.trend_rising))
+    override val previewValue = "62%↑"
+    override fun previewDescription() = getString(R.string.description_tide, "62", getString(R.string.trend_rising))
     override fun value(snapshot: MarineSnapshot): String {
         val arrow = when (snapshot.tideTrend) {
             TideTrend.RISING -> "↑"
             TideTrend.FALLING -> "↓"
             TideTrend.STEADY -> "→"
         }
-        return "${snapshot.tideHeightMeters.oneDecimal()}m$arrow"
+        return "${snapshot.tideLevelPercent}%$arrow"
     }
 
     override fun description(snapshot: MarineSnapshot): String {
@@ -83,7 +83,7 @@ class TideComplicationService : BaseMarineComplicationService() {
             TideTrend.FALLING -> R.string.trend_falling
             TideTrend.STEADY -> R.string.trend_steady
         }
-        return getString(R.string.description_tide, snapshot.tideHeightMeters.oneDecimal(), getString(trend))
+        return getString(R.string.description_tide, snapshot.tideLevelPercent.toString(), getString(trend))
     }
 }
 

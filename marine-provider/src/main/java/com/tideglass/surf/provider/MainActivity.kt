@@ -308,7 +308,7 @@ private fun SnapshotPanel(data: MarineSnapshot) {
             TideTrend.FALLING -> "↓"
             TideTrend.STEADY -> "→"
         }
-        MetricRow(stringResource(R.string.metric_tide), "${data.tideHeightMeters.oneDecimal()} m $trend", Foam)
+        MetricRow(stringResource(R.string.metric_tide), "${data.tideLevelPercent}% $trend", Foam)
         MetricRow(stringResource(R.string.metric_next), nextTide(data), Sand)
         MetricRow(
             stringResource(R.string.metric_surf),

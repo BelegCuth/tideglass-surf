@@ -3,7 +3,7 @@ Tideglass Surf convierte tu reloj Wear OS en un instrumento de surf limpio y de 
 Consulta la información importante antes de entrar al agua: marea actual y tendencia, próxima pleamar o bajamar, altura y periodo del oleaje, viento y spot seleccionado. Su diseño digital sobrio se inspira en los relojes clásicos de mareas y mantiene una gran legibilidad en exteriores.
 
 FUNCIONES
-• Altura actual de la marea y tendencia de subida o bajada
+• Nivel actual de marea como porcentaje del rango local y tendencia de subida o bajada
 • Hora y altura de la próxima pleamar o bajamar
 • Altura, periodo y dirección del oleaje
 • Velocidad y dirección del viento

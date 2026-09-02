@@ -16,13 +16,14 @@ def test_contract_is_bilingual_neutral_and_android_compatible():
     now = datetime(2026, 9, 1, 12, tzinfo=timezone.utc)
     payload = document(
         Spot("mundaka", "MUNDAKA", 43.4075, -2.6988, "Spain"),
-        TideReading(1.23, "RISING", "HIGH", now + timedelta(hours=2), 2.1),
+        TideReading(1.23, "RISING", "HIGH", now + timedelta(hours=2), 2.1, 62),
         WaveReading(1.6, 12.0, 310.0, now),
         WindReading(8.0, 90.0, now),
         now,
     )
     assert payload["schemaVersion"] == 1
     assert payload["tide"]["next"]["type"] == "HIGH"
+    assert payload["tide"]["levelPercent"] == 62
     assert payload["swell"]["periodSeconds"] == 12.0
     assert len(payload["attribution"]) == 3
 
@@ -34,6 +35,7 @@ def test_tide_analysis_finds_next_high():
     assert result.trend == "RISING"
     assert result.next_type == "HIGH"
     assert result.next_at == times[2]
+    assert result.level_percent == 0
 
 
 def test_demo_generates_every_catalogue_spot(tmp_path):

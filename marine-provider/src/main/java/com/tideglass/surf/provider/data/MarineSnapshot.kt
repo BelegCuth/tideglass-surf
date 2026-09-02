@@ -11,6 +11,7 @@ data class MarineSnapshot(
     val latitude: Double,
     val longitude: Double,
     val tideHeightMeters: Double,
+    val tideLevelPercent: Int,
     val tideTrend: TideTrend,
     val nextTideType: TideEventType?,
     val nextTideEpochMillis: Long?,
@@ -27,6 +28,7 @@ data class MarineSnapshot(
     fun toJson(): String = JSONObject()
         .put("spotId", spotId).put("spot", spotName).put("lat", latitude).put("lon", longitude)
         .put("tideHeight", tideHeightMeters).put("tideTrend", tideTrend.name)
+        .put("tideLevelPercent", tideLevelPercent)
         .put("nextTideType", nextTideType?.name).put("nextTideAt", nextTideEpochMillis)
         .put("swellHeight", swellHeightMeters).put("swellPeriod", swellPeriodSeconds)
         .put("swellDirection", swellDirectionDegrees).put("windSpeed", windSpeedKnots)
@@ -40,7 +42,8 @@ data class MarineSnapshot(
             MarineSnapshot(
                 spotId = json.optString("spotId", "legacy"),
                 spotName = json.getString("spot"), latitude = json.getDouble("lat"), longitude = json.getDouble("lon"),
-                tideHeightMeters = json.getDouble("tideHeight"), tideTrend = TideTrend.valueOf(json.getString("tideTrend")),
+                tideHeightMeters = json.getDouble("tideHeight"), tideLevelPercent = json.optInt("tideLevelPercent", 50),
+                tideTrend = TideTrend.valueOf(json.getString("tideTrend")),
                 nextTideType = json.nullableEnum("nextTideType", TideEventType::valueOf),
                 nextTideEpochMillis = json.optLong("nextTideAt").takeIf { it > 0 },
                 swellHeightMeters = json.getDouble("swellHeight"), swellPeriodSeconds = json.getDouble("swellPeriod"),
@@ -63,7 +66,8 @@ data class MarineSnapshot(
             MarineSnapshot(
                 spotId = spot.getString("id"), spotName = spot.getString("name"),
                 latitude = spot.getDouble("latitude"), longitude = spot.getDouble("longitude"),
-                tideHeightMeters = tide.getDouble("heightMeters"), tideTrend = TideTrend.valueOf(tide.getString("trend")),
+                tideHeightMeters = tide.getDouble("heightMeters"), tideLevelPercent = tide.optInt("levelPercent", 50),
+                tideTrend = TideTrend.valueOf(tide.getString("trend")),
                 nextTideType = next?.getString("type")?.let(TideEventType::valueOf),
                 nextTideEpochMillis = next?.getString("at")?.let { Instant.parse(it).toEpochMilli() },
                 swellHeightMeters = swell.getDouble("heightMeters"), swellPeriodSeconds = swell.getDouble("periodSeconds"),

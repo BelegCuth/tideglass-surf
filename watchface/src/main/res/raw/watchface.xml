@@ -11,7 +11,7 @@
             <!-- Spot -->
             <PartText x="100" y="18" width="250" height="34">
                 <Text align="CENTER">
-                    <Font family="SYNC_TO_DEVICE" size="24" weight="MEDIUM" color="#FF74D9D4">MUNDAKA</Font>
+                    <Font family="SYNC_TO_DEVICE" size="20" weight="MEDIUM" color="#FF74D9D4">label_open_data</Font>
                 </Text>
             </PartText>
 
@@ -42,7 +42,7 @@
             </PartText>
             <PartText x="48" y="174" width="150" height="54">
                 <Text align="START">
-                    <Font family="SYNC_TO_DEVICE" size="48" weight="MEDIUM" color="#FFF2EFE7">1.4m ↑</Font>
+                    <Font family="SYNC_TO_DEVICE" size="48" weight="MEDIUM" color="#FF829394">placeholder_value</Font>
                 </Text>
             </PartText>
             <PartText x="230" y="153" width="160" height="25">
@@ -52,31 +52,16 @@
             </PartText>
             <PartText x="230" y="180" width="160" height="43">
                 <Text align="START">
-                    <Font family="SYNC_TO_DEVICE" size="38" weight="MEDIUM" color="#FFF2EFE7">12:42</Font>
+                    <Font family="SYNC_TO_DEVICE" size="38" weight="MEDIUM" color="#FF829394">placeholder_time</Font>
                 </Text>
             </PartText>
 
-            <!-- Twelve-hour tide histogram; sparse, high-contrast and cheap to render. -->
-            <PartDraw x="52" y="232" width="346" height="48">
-                <Rectangle x="0" y="28" width="16" height="20"><Fill color="#FF74D9D4" /></Rectangle>
-                <Rectangle x="28" y="21" width="16" height="27"><Fill color="#FF74D9D4" /></Rectangle>
-                <Rectangle x="56" y="13" width="16" height="35"><Fill color="#FF74D9D4" /></Rectangle>
-                <Rectangle x="84" y="5" width="16" height="43"><Fill color="#FF74D9D4" /></Rectangle>
-                <Rectangle x="112" y="0" width="16" height="48"><Fill color="#FF74D9D4" /></Rectangle>
-                <Rectangle x="140" y="4" width="16" height="44"><Fill color="#FF74D9D4" /></Rectangle>
-                <Rectangle x="168" y="11" width="16" height="37"><Fill color="#FF74D9D4" /></Rectangle>
-                <Rectangle x="196" y="20" width="16" height="28"><Fill color="#FF74D9D4" /></Rectangle>
-                <Rectangle x="224" y="29" width="16" height="19"><Fill color="#FF74D9D4" /></Rectangle>
-                <Rectangle x="252" y="35" width="16" height="13"><Fill color="#FF74D9D4" /></Rectangle>
-                <Rectangle x="280" y="31" width="16" height="17"><Fill color="#FF74D9D4" /></Rectangle>
-                <Rectangle x="308" y="23" width="16" height="25"><Fill color="#FF74D9D4" /></Rectangle>
-                <Rectangle x="336" y="14" width="10" height="34"><Fill color="#FF74D9D4" /></Rectangle>
+            <!-- The first release does not yet receive a tide series. Keep this area explicitly non-numeric. -->
+            <PartDraw x="52" y="246" width="346" height="1">
+                <Rectangle x="0" y="0" width="346" height="1"><Fill color="#FF29302F" /></Rectangle>
             </PartDraw>
-            <PartDraw x="178" y="226" width="2" height="58">
-                <Rectangle x="0" y="0" width="2" height="58"><Fill color="#FFFF756B" /></Rectangle>
-            </PartDraw>
-            <PartText x="153" y="267" width="52" height="20">
-                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="14" weight="MEDIUM" color="#FFFF756B">label_now</Font></Text>
+            <PartText x="52" y="253" width="346" height="24">
+                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="14" weight="MEDIUM" color="#FF829394">label_live_data</Font></Text>
             </PartText>
 
             <!-- Surf and wind summary -->
@@ -87,21 +72,21 @@
                 <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="18" weight="MEDIUM" color="#FF74D9D4">label_surf</Font></Text>
             </PartText>
             <PartText x="42" y="328" width="172" height="48">
-                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="34" weight="MEDIUM" color="#FFF2EFE7">1.6m 12s NW</Font></Text>
+                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="30" weight="MEDIUM" color="#FF829394">placeholder_surf</Font></Text>
             </PartText>
             <PartText x="239" y="302" width="165" height="25">
                 <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="18" weight="MEDIUM" color="#FF74D9D4">label_wind</Font></Text>
             </PartText>
             <PartText x="236" y="328" width="172" height="48">
-                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="34" weight="MEDIUM" color="#FFF2EFE7">8kn E</Font></Text>
+                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="30" weight="MEDIUM" color="#FF829394">placeholder_value</Font></Text>
             </PartText>
 
             <PartText x="110" y="389" width="230" height="35">
-                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="22" weight="MEDIUM" color="#FF74D9D4">label_water_demo</Font></Text>
+                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="14" weight="MEDIUM" color="#FFFF756B">label_forecast_notice</Font></Text>
             </PartText>
         </Group>
 
-        <!-- Editable slots. Demo values above remain as graceful fallback. -->
+        <!-- Editable live-data slots. Neutral placeholders above prevent stale or sample values being mistaken for forecasts. -->
             <ComplicationSlot x="100" y="18" width="250" height="34" slotId="1" displayName="spot_slot_label" supportedTypes="SHORT_TEXT EMPTY">
                 <BoundingRoundBox x="0" y="0" width="250" height="34" cornerRadius="12" outlinePadding="2" />
                 <Complication type="SHORT_TEXT">
@@ -149,8 +134,8 @@
                     <Font family="SYNC_TO_DEVICE" size="92" weight="THIN" color="#FFF2EFE7" />
                 </TimeText>
             </DigitalClock>
-            <PartText x="110" y="247" width="230" height="38">
-                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="24" weight="NORMAL" color="#FF74D9D4">1.4m ↑ · 12:42</Font></Text>
+            <PartText x="110" y="247" width="230" height="28">
+                <Text align="CENTER"><Font family="SYNC_TO_DEVICE" size="14" weight="NORMAL" color="#FF829394">label_forecast_notice</Font></Text>
             </PartText>
         </Group>
     </Scene>

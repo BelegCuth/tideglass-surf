@@ -36,7 +36,7 @@
     <string name="trend_steady">estable</string>
     <string name="attribution_short">EOT20 · Copernicus Marine · MET Norway</string>
     <string name="description_spot">Spot de surf seleccionado: %1$s</string>
-    <string name="description_tide">Marea actual %1$s metros, %2$s</string>
+    <string name="description_tide">Nivel actual de marea %1$s por ciento, %2$s</string>
     <string name="description_next_tide">Próxima %1$s a las %2$s</string>
     <plurals name="description_swell">
         <item quantity="one">Mar de fondo de %1$s metros, %2$d segundo, desde %3$s</item>

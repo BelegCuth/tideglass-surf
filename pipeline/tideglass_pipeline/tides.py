@@ -13,11 +13,14 @@ def _analyse(times: list[datetime], heights: list[float], now: datetime) -> Tide
     before, after = max(0, current - 1), min(len(times) - 1, current + 1)
     delta = heights[after] - heights[before]
     trend = "RISING" if delta > 0.005 else "FALLING" if delta < -0.005 else "STEADY"
+    range_min, range_max = min(heights), max(heights)
+    span = range_max - range_min
+    level_percent = 50 if span < 0.01 else max(0, min(100, round((heights[current] - range_min) / span * 100)))
     for i in range(max(1, current + 1), len(times) - 1):
         if heights[i] > heights[i - 1] and heights[i] >= heights[i + 1]:
-            return TideReading(heights[current], trend, "HIGH", times[i], heights[i])
+            return TideReading(heights[current], trend, "HIGH", times[i], heights[i], level_percent)
         if heights[i] < heights[i - 1] and heights[i] <= heights[i + 1]:
-            return TideReading(heights[current], trend, "LOW", times[i], heights[i])
+            return TideReading(heights[current], trend, "LOW", times[i], heights[i], level_percent)
     raise ValueError("No future tidal extremum found")
 
 
@@ -29,7 +32,7 @@ def eot20_tides(spots: list[Spot], now: datetime, model_dir: Path) -> dict[str, 
     import pandas as pd
     from eo_tides.model import model_tides
 
-    start = now.astimezone(timezone.utc) - timedelta(hours=1)
+    start = now.astimezone(timezone.utc) - timedelta(hours=8)
     times = pd.date_range(start=start, end=start + timedelta(hours=32), freq="15min", tz="UTC")
     predicted = model_tides(
         x=[spot.longitude for spot in spots],

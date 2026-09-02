@@ -11,5 +11,10 @@
     <string name="label_now">AHORA</string>
     <string name="label_surf">OLEAJE</string>
     <string name="label_wind">VIENTO</string>
-    <string name="label_water_demo">AGUA 19 C</string>
+    <string name="label_open_data">ABRE TIDEGLASS DATA</string>
+    <string name="label_live_data">DATOS MARINOS EN DIRECTO</string>
+    <string name="label_forecast_notice">SOLO PREVISIÓN</string>
+    <string name="placeholder_value">--</string>
+    <string name="placeholder_time">--:--</string>
+    <string name="placeholder_surf">-- · --</string>
 </resources>

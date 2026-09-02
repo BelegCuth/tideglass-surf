@@ -3,7 +3,7 @@ Tideglass Surf turns your Wear OS watch into a clean, high-contrast surf instrum
 See the information that matters before you paddle out: current tide and trend, next high or low tide, swell height and period, wind and your selected surf spot. The restrained digital design is inspired by classic tide watches and remains easy to read in bright outdoor conditions.
 
 FEATURES
-• Current tide height and rising or falling trend
+• Current tide level as a local-range percentage, with rising or falling trend
 • Time and height of the next high or low tide
 • Swell height, period and direction
 • Wind speed and direction

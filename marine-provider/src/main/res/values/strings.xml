@@ -36,7 +36,7 @@
     <string name="trend_steady">steady</string>
     <string name="attribution_short">EOT20 · Copernicus Marine · MET Norway</string>
     <string name="description_spot">Selected surf spot: %1$s</string>
-    <string name="description_tide">Current tide %1$s metres, %2$s</string>
+    <string name="description_tide">Current tide level %1$s percent, %2$s</string>
     <string name="description_next_tide">Next %1$s tide at %2$s</string>
     <plurals name="description_swell">
         <item quantity="one">Swell %1$s metres, %2$d second, from %3$s</item>

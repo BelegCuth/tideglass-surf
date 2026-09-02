@@ -29,7 +29,7 @@ The watch face exposes five editable complication slots. A separate Wear OS app 
 | Slot | Type | Example |
 | --- | --- | --- |
 | Spot | SHORT_TEXT | MUNDAKA |
-| Tide | SHORT_TEXT | 1.4m UP |
+| Tide | SHORT_TEXT | 62% UP |
 | Next tide | SHORT_TEXT | HIGH 12:42 |
 | Surf | SHORT_TEXT | 1.6m 12s NW |
 | Wind | SHORT_TEXT | 8kn E |
@@ -39,6 +39,7 @@ The provider selects the nearest of 48 worldwide launch spots or keeps a manuall
 ## Production data architecture
 
 - EOT20 calculates tidal predictions offline under CC BY 4.0.
+- The watch displays tide level as a datum-independent percentage of the local model range; raw model elevation remains available in the API.
 - Copernicus Marine supplies global swell forecasts from `GLOBAL_ANALYSISFORECAST_WAV_001_027`.
 - MET Norway Locationforecast supplies global wind.
 - A scheduled job publishes one static JSON file per spot; watches never receive upstream credentials.

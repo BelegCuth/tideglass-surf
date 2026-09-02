@@ -25,6 +25,7 @@ class TideReading:
     next_type: str
     next_at: datetime
     next_height: float
+    level_percent: int
 
 
 @dataclass(frozen=True)
@@ -50,6 +51,8 @@ def document(spot: Spot, tide: TideReading, wave: WaveReading, wind: WindReading
         "validAt": iso(min(wave.valid_at, wind.valid_at)),
         "tide": {
             "heightMeters": round(tide.height, 2),
+            "levelPercent": tide.level_percent,
+            "levelReference": "LOCAL_MODEL_RANGE",
             "trend": tide.trend,
             "next": {"type": tide.next_type, "at": iso(tide.next_at), "heightMeters": round(tide.next_height, 2)},
         },
