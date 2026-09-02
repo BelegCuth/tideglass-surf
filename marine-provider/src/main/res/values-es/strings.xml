@@ -12,11 +12,15 @@
     <string name="status_loading">ACTUALIZANDO</string>
     <string name="status_error">SIN CONEXIÓN</string>
     <string name="action_location">Usar mi ubicación</string>
+    <string name="action_choose_spot">Elegir spot de surf</string>
+    <string name="action_back">Volver</string>
     <string name="action_refresh">Actualizar ahora</string>
     <string name="action_retry">Reintentar</string>
     <string name="last_updated">Actualizado %1$s</string>
     <string name="accuracy_notice">Solo previsión · No usar para navegación</string>
     <string name="location_saved">Spot cercano seleccionado</string>
+    <string name="spot_saved">%1$s seleccionado</string>
+    <string name="choose_spot_title">ELEGIR SPOT</string>
     <string name="location_failed">Ubicación no disponible</string>
     <string name="permission_denied">No se concedió el permiso de ubicación</string>
     <string name="offline">SIN CONEXIÓN</string>

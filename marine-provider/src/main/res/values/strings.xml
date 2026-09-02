@@ -12,11 +12,15 @@
     <string name="status_loading">UPDATING</string>
     <string name="status_error">NO CONNECTION</string>
     <string name="action_location">Use my location</string>
+    <string name="action_choose_spot">Choose a surf spot</string>
+    <string name="action_back">Back</string>
     <string name="action_refresh">Refresh now</string>
     <string name="action_retry">Try again</string>
     <string name="last_updated">Updated %1$s</string>
     <string name="accuracy_notice">Forecast only · Not for navigation</string>
     <string name="location_saved">Nearest spot selected</string>
+    <string name="spot_saved">%1$s selected</string>
+    <string name="choose_spot_title">CHOOSE SPOT</string>
     <string name="location_failed">Location unavailable</string>
     <string name="permission_denied">Location permission was not granted</string>
     <string name="offline">OFFLINE</string>

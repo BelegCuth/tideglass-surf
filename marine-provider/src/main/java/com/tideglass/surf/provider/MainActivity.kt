@@ -54,6 +54,8 @@ import androidx.wear.compose.material3.Text
 import com.tideglass.surf.provider.complications.ComplicationUpdater
 import com.tideglass.surf.provider.data.MarineRepository
 import com.tideglass.surf.provider.data.MarineSnapshot
+import com.tideglass.surf.provider.data.SpotCatalog
+import com.tideglass.surf.provider.data.SurfSpot
 import com.tideglass.surf.provider.data.TideEventType
 import com.tideglass.surf.provider.data.TideTrend
 import com.tideglass.surf.provider.data.cardinalDirection
@@ -91,6 +93,7 @@ private fun TideglassApp() {
     var snapshot by remember { mutableStateOf(MarineRepository.cached(context)) }
     var loadState by remember { mutableStateOf(if (snapshot == null) LoadState.LOADING else LoadState.READY) }
     var message by remember { mutableStateOf<String?>(null) }
+    var choosingSpot by remember { mutableStateOf(false) }
 
     fun refresh(force: Boolean) {
         scope.launch {
@@ -166,36 +169,53 @@ private fun TideglassApp() {
                 Text(it, color = if (loadState == LoadState.ERROR) Coral else Muted, fontSize = 10.sp)
             }
             Spacer(Modifier.height(12.dp))
-            ActionButton(
-                text = context.getString(R.string.action_location),
-                prominent = true,
-            ) {
-                val fineGranted = ContextCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                ) == PackageManager.PERMISSION_GRANTED
-                if (fineGranted) {
-                    scope.launch {
-                        val location = currentLocation(context)
-                        if (location != null) {
-                            MarineRepository.saveLocation(context, location.latitude, location.longitude)
-                            refresh(force = true)
-                        } else message = context.getString(R.string.location_failed)
+            if (choosingSpot) {
+                SpotPicker(
+                    onSelected = { spot ->
+                        MarineRepository.saveSpot(context, spot.id)
+                        choosingSpot = false
+                        message = context.getString(R.string.spot_saved, spot.name)
+                        refresh(force = true)
+                    },
+                    onCancel = { choosingSpot = false },
+                )
+            } else {
+                ActionButton(
+                    text = context.getString(R.string.action_location),
+                    prominent = true,
+                ) {
+                    val fineGranted = ContextCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                    ) == PackageManager.PERMISSION_GRANTED
+                    if (fineGranted) {
+                        scope.launch {
+                            val location = currentLocation(context)
+                            if (location != null) {
+                                MarineRepository.saveLocation(context, location.latitude, location.longitude)
+                                refresh(force = true)
+                            } else message = context.getString(R.string.location_failed)
+                        }
+                    } else {
+                        locationLauncher.launch(
+                            arrayOf(
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION,
+                            ),
+                        )
                     }
-                } else {
-                    locationLauncher.launch(
-                        arrayOf(
-                            Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION,
-                        ),
-                    )
                 }
+                Spacer(Modifier.height(7.dp))
+                ActionButton(
+                    text = context.getString(R.string.action_choose_spot),
+                    prominent = false,
+                ) { choosingSpot = true }
+                Spacer(Modifier.height(7.dp))
+                ActionButton(
+                    text = context.getString(if (loadState == LoadState.ERROR) R.string.action_retry else R.string.action_refresh),
+                    prominent = false,
+                ) { refresh(force = true) }
             }
-            Spacer(Modifier.height(7.dp))
-            ActionButton(
-                text = context.getString(if (loadState == LoadState.ERROR) R.string.action_retry else R.string.action_refresh),
-                prominent = false,
-            ) { refresh(force = true) }
             Spacer(Modifier.height(10.dp))
             Text(
                 text = context.getString(R.string.accuracy_notice).uppercase(),
@@ -206,6 +226,34 @@ private fun TideglassApp() {
             )
         }
     }
+}
+
+@Composable
+private fun SpotPicker(onSelected: (SurfSpot) -> Unit, onCancel: () -> Unit) {
+    Text(
+        text = stringResource(R.string.choose_spot_title),
+        color = Sand,
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Bold,
+        letterSpacing = 1.sp,
+    )
+    Spacer(Modifier.height(6.dp))
+    SpotCatalog.spots.forEach { spot ->
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(12.dp))
+                .clickable(role = Role.Button) { onSelected(spot) }
+                .padding(horizontal = 12.dp, vertical = 9.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(spot.name, color = Sand, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+            Text(spot.region.uppercase(), color = Muted, fontSize = 7.sp, textAlign = TextAlign.End)
+        }
+    }
+    Spacer(Modifier.height(7.dp))
+    ActionButton(text = stringResource(R.string.action_back), prominent = false, onClick = onCancel)
 }
 
 @Composable

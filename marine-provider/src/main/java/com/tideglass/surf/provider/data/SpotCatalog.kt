@@ -64,6 +64,8 @@ object SpotCatalog {
     fun nearest(latitude: Double, longitude: Double): SurfSpot =
         spots.minBy { distanceKm(latitude, longitude, it.latitude, it.longitude) }
 
+    fun byId(id: String): SurfSpot? = spots.firstOrNull { it.id == id }
+
     fun distanceKm(latitudeA: Double, longitudeA: Double, latitudeB: Double, longitudeB: Double): Double {
         val earthRadiusKm = 6371.0
         val deltaLatitude = Math.toRadians(latitudeB - latitudeA)

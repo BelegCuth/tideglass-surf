@@ -15,6 +15,7 @@ object MarineRepository {
     private const val KEY_SNAPSHOT = "snapshot"
     private const val KEY_LATITUDE = "latitude"
     private const val KEY_LONGITUDE = "longitude"
+    private const val KEY_SPOT_ID = "spot_id"
     private const val CACHE_MAX_AGE_MILLIS = 30 * 60 * 1000L
     private const val DEFAULT_LATITUDE = 43.4075
     private const val DEFAULT_LONGITUDE = -2.6988
@@ -30,6 +31,14 @@ object MarineRepository {
         context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE).edit {
             putString(KEY_LATITUDE, latitude.toString())
             putString(KEY_LONGITUDE, longitude.toString())
+            remove(KEY_SPOT_ID)
+        }
+    }
+
+    fun saveSpot(context: Context, spotId: String) {
+        requireNotNull(SpotCatalog.byId(spotId)) { "Unknown Tideglass spot: $spotId" }
+        context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE).edit {
+            putString(KEY_SPOT_ID, spotId)
         }
     }
 
@@ -45,9 +54,11 @@ object MarineRepository {
         val baseUrl = BuildConfig.DATA_BASE_URL.trim().trimEnd('/')
         require(baseUrl.startsWith("https://")) { "Tideglass data URL is not configured" }
         val preferences = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
-        val latitude = preferences.getString(KEY_LATITUDE, null)?.toDoubleOrNull() ?: DEFAULT_LATITUDE
-        val longitude = preferences.getString(KEY_LONGITUDE, null)?.toDoubleOrNull() ?: DEFAULT_LONGITUDE
-        val spot = SpotCatalog.nearest(latitude, longitude)
+        val spot = preferences.getString(KEY_SPOT_ID, null)?.let(SpotCatalog::byId) ?: run {
+            val latitude = preferences.getString(KEY_LATITUDE, null)?.toDoubleOrNull() ?: DEFAULT_LATITUDE
+            val longitude = preferences.getString(KEY_LONGITUDE, null)?.toDoubleOrNull() ?: DEFAULT_LONGITUDE
+            SpotCatalog.nearest(latitude, longitude)
+        }
         val snapshot = MarineSnapshot.fromPublishedJson(request("$baseUrl/v1/spots/${spot.id}.json"))
         require(snapshot.spotId == spot.id) { "Marine-data spot mismatch" }
         preferences.edit { putString(KEY_SNAPSHOT, snapshot.toJson()) }
