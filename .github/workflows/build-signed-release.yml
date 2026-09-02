@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      TIDEGLASS_UPLOAD_STORE_FILE: ${{ runner.temp }}/tideglass-upload.jks
+      TIDEGLASS_UPLOAD_STORE_FILE: ${{ github.workspace }}/tideglass-upload.jks
       TIDEGLASS_UPLOAD_STORE_PASSWORD: ${{ secrets.ANDROID_UPLOAD_STORE_PASSWORD }}
       TIDEGLASS_UPLOAD_KEY_ALIAS: ${{ secrets.ANDROID_UPLOAD_KEY_ALIAS }}
       TIDEGLASS_UPLOAD_KEY_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}
