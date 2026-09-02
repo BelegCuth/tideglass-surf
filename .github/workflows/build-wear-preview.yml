@@ -1,0 +1,71 @@
+name: Build Wear OS preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/build-wear-preview.yml"
+      - "build.gradle.kts"
+      - "settings.gradle.kts"
+      - "gradle/**"
+      - "gradle.properties"
+      - "gradlew"
+      - "gradlew.bat"
+      - "marine-provider/**"
+      - "watchface/**"
+  pull_request:
+    paths:
+      - ".github/workflows/build-wear-preview.yml"
+      - "build.gradle.kts"
+      - "settings.gradle.kts"
+      - "gradle/**"
+      - "gradle.properties"
+      - "gradlew"
+      - "gradlew.bat"
+      - "marine-provider/**"
+      - "watchface/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wear-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Verify production data endpoint
+        run: curl --fail --silent --show-error https://data.tideglass.me/v1/index.json | jq -e '.spots | length == 48'
+      - name: Test, lint and build Wear OS packages
+        run: >-
+          ./gradlew
+          :marine-provider:testDebugUnitTest
+          :marine-provider:lintRelease
+          :marine-provider:assembleRelease
+          :marine-provider:bundleRelease
+          :watchface:lintRelease
+          :watchface:assembleRelease
+          :watchface:bundleRelease
+          -Ptideglass.dataBaseUrl=https://data.tideglass.me
+      - name: Upload install and store preview packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: tideglass-wear-preview-${{ github.sha }}
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            marine-provider/build/outputs/apk/release/marine-provider-release.apk
+            marine-provider/build/outputs/bundle/release/marine-provider-release.aab
+            watchface/build/outputs/apk/release/watchface-release.apk
+            watchface/build/outputs/bundle/release/watchface-release.aab

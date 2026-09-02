@@ -21,6 +21,8 @@ Install Android SDK 36 and JDK 17+ (JDK 21 is supported), then set the HTTPS roo
 
 Install both packages on Wear OS 5+, open **Tideglass Data**, use GPS or choose one of the 48 spots manually, and assign the five Tideglass complications. Release bundles are still debug-signed; replace that signing configuration before Play Console upload.
 
+The **Build Wear OS preview** GitHub Action verifies the live 48-spot endpoint, runs tests and lint, and publishes both APK and AAB packages as a downloadable 14-day artifact. These preview packages are debug-signed and are not the final Play Console signing setup.
+
 ## Generate data locally
 
 From `pipeline`, a no-network contract test and sample run is:
