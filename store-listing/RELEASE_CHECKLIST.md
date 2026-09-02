@@ -7,11 +7,11 @@
 - Add the Wear OS form factor and begin with an internal-testing track for both listings.
 - Keep the compatibility statement visible: Wear OS 5+, not Mi Fitness / Xiaomi Watch S1 Active.
 
-## Identity and legal details still required from the publisher
+## Identity and legal details
 
-- Google Play developer account and verified legal publisher name.
-- Support email that is actively monitored.
-- Public privacy-policy URL containing the publisher name, support email, effective date and hosting log-retention wording.
+- Legal publisher name: `Manuel Herrero Paz` (must match the verified Google Play developer account).
+- Support email: `support@tideglass.me`.
+- Privacy-policy URL: `https://data.tideglass.me/privacy/`.
 - Final price and localized price rounding for the paid watch-face listing.
 
 ## Signing

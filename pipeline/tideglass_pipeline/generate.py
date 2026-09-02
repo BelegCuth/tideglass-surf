@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -29,6 +30,9 @@ def demo_readings(spot: Spot, now: datetime) -> tuple[TideReading, WaveReading, 
 
 def generate(spots_path: Path, output: Path, model_dir: Path, demo: bool = False, now: datetime | None = None) -> int:
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    static = Path(__file__).resolve().parent.parent / "static"
+    if static.is_dir():
+        shutil.copytree(static, output, dirs_exist_ok=True)
     destination = output / "v1" / "spots"
     destination.mkdir(parents=True, exist_ok=True)
     spots = load_spots(spots_path)

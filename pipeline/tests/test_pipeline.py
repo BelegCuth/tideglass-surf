@@ -52,6 +52,9 @@ def test_demo_generates_every_catalogue_spot(tmp_path):
     assert validate_public(tmp_path, now=now + timedelta(hours=1)) == 48
     assert len(list((tmp_path / "v1" / "spots").glob("*.json"))) == len(spots)
     assert json.loads((tmp_path / "v1" / "spots" / "mundaka.json").read_text())["spot"]["id"] == "mundaka"
+    privacy = (tmp_path / "privacy" / "index.html").read_text(encoding="utf-8")
+    assert "Manuel Herrero Paz" in privacy
+    assert "support@tideglass.me" in privacy
 
 
 def test_android_and_pipeline_catalogues_have_same_ids():

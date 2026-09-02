@@ -2,6 +2,12 @@ name: Publish marine data
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "pipeline/static/**"
+      - "pipeline/tideglass_pipeline/generate.py"
   schedule:
     - cron: "17 */6 * * *"
 
