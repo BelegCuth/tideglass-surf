@@ -1,0 +1,9 @@
+Tideglass Data supplies live marine complications to the Tideglass Surf watch face on Wear OS.
+
+Choose one of 48 curated surf spots worldwide or allow the watch to select the nearest spot from your location. The app downloads a compact forecast, keeps a local cache for unreliable connections and updates the Tideglass complications for spot, tide, next tide, swell and wind.
+
+Location is optional, requested only when you tap “Use my location” and processed locally on the watch. Your coordinates are not sent to Tideglass.
+
+Requires Wear OS 5 or newer. This app is designed as the free data companion for the separately installed Tideglass Surf watch face.
+
+Forecast only. Not for navigation or safety-critical use. Data attribution: EOT20, Copernicus Marine Service and MET Norway.

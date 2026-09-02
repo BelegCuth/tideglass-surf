@@ -1,0 +1,21 @@
+Tideglass Surf convierte tu reloj Wear OS en un instrumento de surf limpio y de alto contraste.
+
+Consulta la información importante antes de entrar al agua: marea actual y tendencia, próxima pleamar o bajamar, altura y periodo del oleaje, viento y spot seleccionado. Su diseño digital sobrio se inspira en los relojes clásicos de mareas y mantiene una gran legibilidad en exteriores.
+
+FUNCIONES
+• Altura actual de la marea y tendencia de subida o bajada
+• Hora y altura de la próxima pleamar o bajamar
+• Altura, periodo y dirección del oleaje
+• Velocidad y dirección del viento
+• 48 spots de surf seleccionados en Europa, África, América, Asia y Oceanía
+• Selección automática del spot más cercano o un destino fijado manualmente
+• Inglés y español
+• Pantalla ambiente de bajo consumo
+
+CONFIGURACIÓN DE DATOS EN DIRECTO
+Instala la aplicación gratuita “Tideglass Data” en el mismo reloj Wear OS, ábrela una vez, elige un spot o usa tu ubicación y asigna las cinco complicaciones Tideglass desde el editor de la esfera.
+
+COMPATIBILIDAD
+Requiere Wear OS 5 o posterior. No es compatible con relojes Xiaomi que utilizan Mi Fitness en lugar de Wear OS, incluido el Xiaomi Watch S1 Active.
+
+La previsión se ofrece únicamente para planificación. Tideglass Surf no es un instrumento de navegación ni de seguridad. La aplicación complementaria atribuye los datos marinos a EOT20, Copernicus Marine Service y MET Norway.

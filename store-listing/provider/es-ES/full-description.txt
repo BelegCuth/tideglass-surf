@@ -1,0 +1,9 @@
+Tideglass Data proporciona complicaciones marinas en directo a la esfera Tideglass Surf para Wear OS.
+
+Elige uno de los 48 spots de surf seleccionados en todo el mundo o permite que el reloj escoja el más cercano a partir de tu ubicación. La aplicación descarga una previsión compacta, mantiene una copia local cuando falla la conexión y actualiza las complicaciones de spot, marea, próxima marea, oleaje y viento.
+
+La ubicación es opcional, solo se solicita al pulsar “Usar mi ubicación” y se procesa localmente en el reloj. Tus coordenadas no se envían a Tideglass.
+
+Requiere Wear OS 5 o posterior. Esta aplicación es el complemento gratuito de datos para la esfera Tideglass Surf, que se instala por separado.
+
+Solo previsión. No utilizar para navegación ni seguridad. Atribución de datos: EOT20, Copernicus Marine Service y MET Norway.

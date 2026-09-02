@@ -3,6 +3,19 @@ plugins {
     alias(libs.plugins.compose.compiler)
 }
 
+val uploadStorePath = providers.environmentVariable("TIDEGLASS_UPLOAD_STORE_FILE").orNull
+val uploadStorePassword = providers.environmentVariable("TIDEGLASS_UPLOAD_STORE_PASSWORD").orNull
+val uploadKeyAlias = providers.environmentVariable("TIDEGLASS_UPLOAD_KEY_ALIAS").orNull
+val uploadKeyPassword = providers.environmentVariable("TIDEGLASS_UPLOAD_KEY_PASSWORD").orNull
+val uploadSigningConfigured = listOf(uploadStorePath, uploadStorePassword, uploadKeyAlias, uploadKeyPassword)
+    .all { !it.isNullOrBlank() }
+val requireReleaseSigning = providers.gradleProperty("tideglass.requireReleaseSigning")
+    .orNull?.toBooleanStrictOrNull() ?: false
+
+if (requireReleaseSigning && !uploadSigningConfigured) {
+    error("A complete Tideglass upload signing configuration is required")
+}
+
 android {
     namespace = "com.tideglass.surf.provider"
     compileSdk = 36
@@ -23,6 +36,17 @@ android {
         buildConfig = true
     }
 
+    signingConfigs {
+        if (uploadSigningConfigured) {
+            create("upload") {
+                storeFile = file(uploadStorePath!!)
+                storePassword = uploadStorePassword
+                keyAlias = uploadKeyAlias
+                keyPassword = uploadKeyPassword
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -39,8 +63,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
-            // Replace with a private upload key before Play Console release.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName(if (uploadSigningConfigured) "upload" else "debug")
         }
     }
 
