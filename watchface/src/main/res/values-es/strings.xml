@@ -4,6 +4,7 @@
     <string name="spot_slot_label">Spot de surf</string>
     <string name="tide_slot_label">Marea actual</string>
     <string name="next_tide_slot_label">Próxima marea</string>
+    <string name="tide_graph_slot_label">Curva de marea</string>
     <string name="surf_slot_label">Condiciones de surf</string>
     <string name="wind_slot_label">Viento</string>
     <string name="label_tide">MAREA</string>

@@ -13,6 +13,7 @@ data class MarineSnapshot(
     val tideHeightMeters: Double,
     val tideLevelPercent: Int,
     val tideTrend: TideTrend,
+    val tideSeries: List<TideGraphPoint>,
     val nextTideType: TideEventType?,
     val nextTideEpochMillis: Long?,
     val swellHeightMeters: Double,
@@ -29,6 +30,7 @@ data class MarineSnapshot(
         .put("spotId", spotId).put("spot", spotName).put("lat", latitude).put("lon", longitude)
         .put("tideHeight", tideHeightMeters).put("tideTrend", tideTrend.name)
         .put("tideLevelPercent", tideLevelPercent)
+        .put("tideSeries", JSONArray(tideSeries.map { JSONObject().put("at", it.epochMillis).put("level", it.levelPercent) }))
         .put("nextTideType", nextTideType?.name).put("nextTideAt", nextTideEpochMillis)
         .put("swellHeight", swellHeightMeters).put("swellPeriod", swellPeriodSeconds)
         .put("swellDirection", swellDirectionDegrees).put("windSpeed", windSpeedKnots)
@@ -44,6 +46,7 @@ data class MarineSnapshot(
                 spotName = json.getString("spot"), latitude = json.getDouble("lat"), longitude = json.getDouble("lon"),
                 tideHeightMeters = json.getDouble("tideHeight"), tideLevelPercent = json.optInt("tideLevelPercent", 50),
                 tideTrend = TideTrend.valueOf(json.getString("tideTrend")),
+                tideSeries = json.optJSONArray("tideSeries")?.graphPoints().orEmpty(),
                 nextTideType = json.nullableEnum("nextTideType", TideEventType::valueOf),
                 nextTideEpochMillis = json.optLong("nextTideAt").takeIf { it > 0 },
                 swellHeightMeters = json.getDouble("swellHeight"), swellPeriodSeconds = json.getDouble("swellPeriod"),
@@ -68,6 +71,7 @@ data class MarineSnapshot(
                 latitude = spot.getDouble("latitude"), longitude = spot.getDouble("longitude"),
                 tideHeightMeters = tide.getDouble("heightMeters"), tideLevelPercent = tide.optInt("levelPercent", 50),
                 tideTrend = TideTrend.valueOf(tide.getString("trend")),
+                tideSeries = tide.getJSONArray("series").publishedGraphPoints(),
                 nextTideType = next?.getString("type")?.let(TideEventType::valueOf),
                 nextTideEpochMillis = next?.getString("at")?.let { Instant.parse(it).toEpochMilli() },
                 swellHeightMeters = swell.getDouble("heightMeters"), swellPeriodSeconds = swell.getDouble("periodSeconds"),
@@ -89,6 +93,16 @@ private fun <T> JSONObject.nullableEnum(key: String, parser: (String) -> T): T? 
     if (!has(key) || isNull(key) || optString(key).isBlank()) null else parser(getString(key))
 
 private fun JSONArray.strings(): List<String> = (0 until length()).map { getString(it) }
+
+private fun JSONArray.graphPoints(): List<TideGraphPoint> = (0 until length()).map { index ->
+    val point = getJSONObject(index)
+    TideGraphPoint(point.getLong("at"), point.getInt("level"))
+}
+
+private fun JSONArray.publishedGraphPoints(): List<TideGraphPoint> = (0 until length()).map { index ->
+    val point = getJSONObject(index)
+    TideGraphPoint(Instant.parse(point.getString("at")).toEpochMilli(), point.getInt("levelPercent"))
+}
 
 fun Double.oneDecimal(): String = String.format(Locale.US, "%.1f", this)
 

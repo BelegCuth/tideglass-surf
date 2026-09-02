@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from .contract import Spot, TideReading
+from .contract import Spot, TideReading, TideSample
 
 
 def _analyse(times: list[datetime], heights: list[float], now: datetime) -> TideReading:
@@ -15,12 +15,18 @@ def _analyse(times: list[datetime], heights: list[float], now: datetime) -> Tide
     trend = "RISING" if delta > 0.005 else "FALLING" if delta < -0.005 else "STEADY"
     range_min, range_max = min(heights), max(heights)
     span = range_max - range_min
-    level_percent = 50 if span < 0.01 else max(0, min(100, round((heights[current] - range_min) / span * 100)))
+    def percent(value: float) -> int:
+        return 50 if span < 0.01 else max(0, min(100, round((value - range_min) / span * 100)))
+
+    level_percent = percent(heights[current])
+    series_start = max(0, current - 24)
+    series_end = min(len(times) - 1, current + 48)
+    series = tuple(TideSample(times[i], percent(heights[i])) for i in range(series_start, series_end + 1, 4))
     for i in range(max(1, current + 1), len(times) - 1):
         if heights[i] > heights[i - 1] and heights[i] >= heights[i + 1]:
-            return TideReading(heights[current], trend, "HIGH", times[i], heights[i], level_percent)
+            return TideReading(heights[current], trend, "HIGH", times[i], heights[i], level_percent, series)
         if heights[i] < heights[i - 1] and heights[i] <= heights[i + 1]:
-            return TideReading(heights[current], trend, "LOW", times[i], heights[i], level_percent)
+            return TideReading(heights[current], trend, "LOW", times[i], heights[i], level_percent, series)
     raise ValueError("No future tidal extremum found")
 
 

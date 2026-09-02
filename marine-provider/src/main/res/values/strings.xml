@@ -6,6 +6,7 @@
     <string name="provider_next_tide">Tideglass · Next tide</string>
     <string name="provider_surf">Tideglass · Surf conditions</string>
     <string name="provider_wind">Tideglass · Wind</string>
+    <string name="provider_tide_graph">Tideglass · Tide curve</string>
     <string name="screen_title">TIDEGLASS</string>
     <string name="screen_subtitle">Live surf data</string>
     <string name="status_ready">DATA READY</string>
@@ -38,6 +39,7 @@
     <string name="description_spot">Selected surf spot: %1$s</string>
     <string name="description_tide">Current tide level %1$s percent, %2$s</string>
     <string name="description_next_tide">Next %1$s tide at %2$s</string>
+    <string name="description_tide_graph">Tide curve from six hours ago to twelve hours ahead</string>
     <plurals name="description_swell">
         <item quantity="one">Swell %1$s metres, %2$d second, from %3$s</item>
         <item quantity="other">Swell %1$s metres, %2$d seconds, from %3$s</item>

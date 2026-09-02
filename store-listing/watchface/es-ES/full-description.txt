@@ -4,7 +4,8 @@ Consulta la información importante antes de entrar al agua: marea actual y tend
 
 FUNCIONES
 • Nivel actual de marea como porcentaje del rango local y tendencia de subida o bajada
-• Hora y altura de la próxima pleamar o bajamar
+• Curva de marea en directo desde seis horas atrás hasta doce horas por delante
+• Hora de la próxima pleamar o bajamar
 • Altura, periodo y dirección del oleaje
 • Velocidad y dirección del viento
 • 48 spots de surf seleccionados en Europa, África, América, Asia y Oceanía
@@ -13,7 +14,7 @@ FUNCIONES
 • Pantalla ambiente de bajo consumo
 
 CONFIGURACIÓN DE DATOS EN DIRECTO
-Instala la aplicación gratuita “Tideglass Data” en el mismo reloj Wear OS, ábrela una vez, elige un spot o usa tu ubicación y asigna las cinco complicaciones Tideglass desde el editor de la esfera.
+Instala la aplicación gratuita “Tideglass Data” en el mismo reloj Wear OS, ábrela una vez y elige un spot o usa tu ubicación. Tideglass solicita automáticamente sus seis campos de datos, que siguen siendo editables desde el editor de la esfera.
 
 COMPATIBILIDAD
 Requiere Wear OS 5 o posterior. No es compatible con relojes Xiaomi que utilizan Mi Fitness en lugar de Wear OS, incluido el Xiaomi Watch S1 Active.

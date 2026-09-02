@@ -4,6 +4,7 @@
     <string name="spot_slot_label">Surf spot</string>
     <string name="tide_slot_label">Current tide</string>
     <string name="next_tide_slot_label">Next tide</string>
+    <string name="tide_graph_slot_label">Tide curve</string>
     <string name="surf_slot_label">Surf conditions</string>
     <string name="wind_slot_label">Wind</string>
     <string name="label_tide">TIDE</string>

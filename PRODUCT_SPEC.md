@@ -17,20 +17,21 @@ Show the decision-critical surf conditions in one glance: current tide and trend
 1. Time.
 2. Selected spot.
 3. Current tide and next high/low.
-4. Twelve-hour tide trend.
+4. Tide curve from six hours ago to twelve hours ahead, with a current-time marker.
 5. Swell height, period, and direction.
 6. Wind speed and direction.
 7. Freshness/error state supplied by the companion app.
 
 ## Implemented data contract
 
-The watch face exposes five editable complication slots. A separate Wear OS app will supply:
+The watch face exposes six editable complication slots. A separate Wear OS app supplies them and is requested as the default provider automatically:
 
 | Slot | Type | Example |
 | --- | --- | --- |
 | Spot | SHORT_TEXT | MUNDAKA |
 | Tide | SHORT_TEXT | 62% UP |
 | Next tide | SHORT_TEXT | HIGH 12:42 |
+| Tide curve | SMALL_IMAGE | EOT20 local-range curve, −6 h…+12 h |
 | Surf | SHORT_TEXT | 1.6m 12s NW |
 | Wind | SHORT_TEXT | 8kn E |
 
@@ -40,6 +41,7 @@ The provider selects the nearest of 48 worldwide launch spots or keeps a manuall
 
 - EOT20 calculates tidal predictions offline under CC BY 4.0.
 - The watch displays tide level as a datum-independent percentage of the local model range; raw model elevation remains available in the API.
+- The tide curve contains 19 hourly, chronologically ordered local-range samples and is rendered on-device as a compact bitmap.
 - Copernicus Marine supplies global swell forecasts from `GLOBAL_ANALYSISFORECAST_WAV_001_027`.
 - MET Norway Locationforecast supplies global wind.
 - A scheduled job publishes one static JSON file per spot; watches never receive upstream credentials.

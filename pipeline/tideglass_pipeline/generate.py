@@ -5,7 +5,7 @@ import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from .contract import Spot, TideReading, WaveReading, WindReading, document, iso
+from .contract import Spot, TideReading, TideSample, WaveReading, WindReading, document, iso
 from .tides import eot20_tides
 from .waves import copernicus_wave
 from .wind import met_norway_wind
@@ -17,7 +17,11 @@ def load_spots(path: Path) -> list[Spot]:
 
 def demo_readings(spot: Spot, now: datetime) -> tuple[TideReading, WaveReading, WindReading]:
     phase = (abs(spot.latitude) + abs(spot.longitude)) % 6
-    tide = TideReading(0.9 + phase / 10, "RISING", "HIGH", now + timedelta(hours=3), 1.8 + phase / 10, 58)
+    series = tuple(
+        TideSample(now + timedelta(hours=offset), max(0, min(100, 58 + offset * 5)))
+        for offset in range(-6, 13)
+    )
+    tide = TideReading(0.9 + phase / 10, "RISING", "HIGH", now + timedelta(hours=3), 1.8 + phase / 10, 58, series)
     wave = WaveReading(1.1 + phase / 12, 9 + phase / 2, (spot.longitude + 360) % 360, now)
     wind = WindReading(6 + phase, (spot.longitude + 45 + 360) % 360, now)
     return tide, wave, wind

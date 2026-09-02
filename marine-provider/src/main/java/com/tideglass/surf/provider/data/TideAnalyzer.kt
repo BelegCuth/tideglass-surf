@@ -4,6 +4,8 @@ import kotlin.math.abs
 
 data class TidePoint(val epochMillis: Long, val heightMeters: Double)
 
+data class TideGraphPoint(val epochMillis: Long, val levelPercent: Int)
+
 enum class TideTrend { RISING, FALLING, STEADY }
 
 enum class TideEventType { HIGH, LOW }
@@ -49,4 +51,3 @@ object TideAnalyzer {
         return null
     }
 }
-

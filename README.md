@@ -4,8 +4,8 @@ Commercial-ready Wear OS surf watch face and worldwide marine-data pipeline, loc
 
 ## What is included
 
-- `watchface`: WFF v2 face with five editable complication slots, localized static labels and ambient mode.
-- `marine-provider`: Wear OS companion that selects the nearest of 48 launch spots or lets the surfer pin one manually, downloads one small static JSON, caches it and supplies the complications.
+- `watchface`: WFF v2 face with six editable complication slots, localized static labels and ambient mode.
+- `marine-provider`: Wear OS companion that selects the nearest of 48 launch spots or lets the surfer pin one manually, downloads one small static JSON, caches it and supplies the complications, including an 18-hour tide curve.
 - `pipeline`: scheduled publisher using EOT20 tides, Copernicus Marine waves and MET Norway wind. A demo mode works without credentials.
 
 The runtime app no longer calls Open-Meteo or embeds third-party credentials. The intended production path has no per-user API fee: calculations run centrally four times per day and the resulting files can be served from a free static host while traffic remains inside its free allowance.
@@ -19,7 +19,7 @@ Install Android SDK 36 and JDK 17+ (JDK 21 is supported), then set the HTTPS roo
   -Ptideglass.dataBaseUrl=https://data.tideglass.me
 ```
 
-Install both packages on Wear OS 5+, open **Tideglass Data**, use GPS or choose one of the 48 spots manually, and assign the five Tideglass complications. Release bundles are still debug-signed; replace that signing configuration before Play Console upload.
+Install both packages on Wear OS 5+ and open **Tideglass Data** to use GPS or choose one of the 48 spots manually. The face requests the six Tideglass providers automatically on first use; users can still replace them in the watch-face editor. Release bundles are still debug-signed; replace that signing configuration before Play Console upload.
 
 The **Build Wear OS preview** GitHub Action verifies the live 48-spot endpoint, runs tests and lint, and publishes both APK and AAB packages as a downloadable 14-day artifact. These preview packages are debug-signed and are not the final Play Console signing setup.
 

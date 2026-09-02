@@ -4,11 +4,15 @@ import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Icon
 import androidx.wear.watchface.complications.data.ComplicationData
 import androidx.wear.watchface.complications.data.ComplicationType
 import androidx.wear.watchface.complications.data.NoDataComplicationData
 import androidx.wear.watchface.complications.data.PlainComplicationText
 import androidx.wear.watchface.complications.data.ShortTextComplicationData
+import androidx.wear.watchface.complications.data.SmallImage
+import androidx.wear.watchface.complications.data.SmallImageComplicationData
+import androidx.wear.watchface.complications.data.SmallImageType
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
 import androidx.wear.watchface.complications.datasource.ComplicationRequest
 import androidx.wear.watchface.complications.datasource.SuspendingComplicationDataSourceService
@@ -17,6 +21,8 @@ import com.tideglass.surf.provider.R
 import com.tideglass.surf.provider.data.MarineRepository
 import com.tideglass.surf.provider.data.MarineSnapshot
 import com.tideglass.surf.provider.data.TideEventType
+import com.tideglass.surf.provider.data.TideGraphPoint
+import com.tideglass.surf.provider.data.TideGraphRenderer
 import com.tideglass.surf.provider.data.TideTrend
 import com.tideglass.surf.provider.data.cardinalDirection
 import com.tideglass.surf.provider.data.oneDecimal
@@ -135,6 +141,44 @@ class WindComplicationService : BaseMarineComplicationService() {
     }
 }
 
+class TideGraphComplicationService : SuspendingComplicationDataSourceService() {
+    override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData {
+        if (request.complicationType != ComplicationType.SMALL_IMAGE) return NoDataComplicationData()
+        val snapshot = runCatching { MarineRepository.snapshot(this) }.getOrNull()
+            ?: return NoDataComplicationData()
+        if (snapshot.tideSeries.size < 2) return NoDataComplicationData()
+        return graphData(snapshot.tideSeries, System.currentTimeMillis())
+    }
+
+    override fun getPreviewData(type: ComplicationType): ComplicationData {
+        if (type != ComplicationType.SMALL_IMAGE) return NoDataComplicationData()
+        val now = System.currentTimeMillis()
+        val levels = listOf(22, 35, 57, 82, 96, 88, 65, 39, 18, 8, 19, 43, 70)
+        val preview = levels.mapIndexed { index, level ->
+            TideGraphPoint(now + (index - 4) * 60L * 60L * 1000L, level)
+        }
+        return graphData(preview, now)
+    }
+
+    private fun graphData(points: List<TideGraphPoint>, nowMillis: Long): ComplicationData {
+        val bitmap = TideGraphRenderer.render(points, nowMillis)
+        val image = SmallImage.Builder(Icon.createWithBitmap(bitmap), SmallImageType.PHOTO).build()
+        return SmallImageComplicationData.Builder(
+            smallImage = image,
+            contentDescription = PlainComplicationText.Builder(getString(R.string.description_tide_graph)).build(),
+        )
+            .setTapAction(
+                PendingIntent.getActivity(
+                    this,
+                    0,
+                    Intent(this, MainActivity::class.java),
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+                ),
+            )
+            .build()
+    }
+}
+
 object ComplicationUpdater {
     private val providerClasses = listOf(
         SpotComplicationService::class.java,
@@ -142,6 +186,7 @@ object ComplicationUpdater {
         NextTideComplicationService::class.java,
         SurfComplicationService::class.java,
         WindComplicationService::class.java,
+        TideGraphComplicationService::class.java,
     )
 
     fun requestAll(context: Context) {

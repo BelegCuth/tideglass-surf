@@ -59,6 +59,19 @@ def validate_public(output: Path, *, now: datetime | None = None, max_age_hours:
         _number(payload["tide"]["levelPercent"], f"{spot_id}.tide.levelPercent", 0, 100)
         if payload["tide"].get("levelReference") != "LOCAL_MODEL_RANGE":
             raise ValueError(f"Unsupported tide level reference for {spot_id}")
+        series = payload["tide"].get("series")
+        if not isinstance(series, list) or not 13 <= len(series) <= 25:
+            raise ValueError(f"Tide series must contain 13..25 samples for {spot_id}")
+        series_times = []
+        for index_value, sample in enumerate(series):
+            if not isinstance(sample, dict):
+                raise ValueError(f"Invalid tide series sample for {spot_id}")
+            series_times.append(_time(sample.get("at"), f"{spot_id}.tide.series[{index_value}].at"))
+            _number(sample.get("levelPercent"), f"{spot_id}.tide.series[{index_value}].levelPercent", 0, 100)
+        if series_times != sorted(series_times) or len(set(series_times)) != len(series_times):
+            raise ValueError(f"Tide series must be strictly chronological for {spot_id}")
+        if series_times[0] > now - timedelta(hours=5) or series_times[-1] < now + timedelta(hours=11):
+            raise ValueError(f"Tide series does not cover the display window for {spot_id}")
         _number(payload["tide"]["next"]["heightMeters"], f"{spot_id}.tide.next.heightMeters", -20, 20)
         _number(payload["swell"]["heightMeters"], f"{spot_id}.swell.heightMeters", 0, 30)
         _number(payload["swell"]["periodSeconds"], f"{spot_id}.swell.periodSeconds", 0, 40)

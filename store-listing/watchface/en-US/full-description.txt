@@ -4,7 +4,8 @@ See the information that matters before you paddle out: current tide and trend, 
 
 FEATURES
 • Current tide level as a local-range percentage, with rising or falling trend
-• Time and height of the next high or low tide
+• Live tide curve from six hours ago to twelve hours ahead
+• Time of the next high or low tide
 • Swell height, period and direction
 • Wind speed and direction
 • 48 curated surf spots across Europe, Africa, the Americas, Asia and Oceania
@@ -13,7 +14,7 @@ FEATURES
 • Low-power ambient display
 
 LIVE DATA SETUP
-Install the free companion app “Tideglass Data” on the same Wear OS watch, open it once, choose a spot or use your location, then assign the five Tideglass complications in the watch-face editor.
+Install the free companion app “Tideglass Data” on the same Wear OS watch, open it once, then choose a spot or use your location. Tideglass requests its six data fields automatically; they remain editable in the watch-face editor.
 
 COMPATIBILITY
 Requires Wear OS 5 or newer. It is not compatible with Xiaomi watches that use Mi Fitness instead of Wear OS, including the Xiaomi Watch S1 Active.

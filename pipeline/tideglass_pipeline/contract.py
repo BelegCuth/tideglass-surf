@@ -19,6 +19,12 @@ class Spot:
 
 
 @dataclass(frozen=True)
+class TideSample:
+    at: datetime
+    level_percent: int
+
+
+@dataclass(frozen=True)
 class TideReading:
     height: float
     trend: str
@@ -26,6 +32,7 @@ class TideReading:
     next_at: datetime
     next_height: float
     level_percent: int
+    series: tuple[TideSample, ...]
 
 
 @dataclass(frozen=True)
@@ -55,6 +62,7 @@ def document(spot: Spot, tide: TideReading, wave: WaveReading, wind: WindReading
             "levelReference": "LOCAL_MODEL_RANGE",
             "trend": tide.trend,
             "next": {"type": tide.next_type, "at": iso(tide.next_at), "heightMeters": round(tide.next_height, 2)},
+            "series": [{"at": iso(sample.at), "levelPercent": sample.level_percent} for sample in tide.series],
         },
         "swell": {
             "heightMeters": round(wave.height, 2),

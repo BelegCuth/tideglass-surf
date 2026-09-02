@@ -3,7 +3,7 @@ import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from tideglass_pipeline.contract import Spot, TideReading, WaveReading, WindReading, document
+from tideglass_pipeline.contract import Spot, TideReading, TideSample, WaveReading, WindReading, document
 from tideglass_pipeline.generate import generate, load_spots
 from tideglass_pipeline.tides import _analyse
 from tideglass_pipeline.validate import validate_public
@@ -16,7 +16,10 @@ def test_contract_is_bilingual_neutral_and_android_compatible():
     now = datetime(2026, 9, 1, 12, tzinfo=timezone.utc)
     payload = document(
         Spot("mundaka", "MUNDAKA", 43.4075, -2.6988, "Spain"),
-        TideReading(1.23, "RISING", "HIGH", now + timedelta(hours=2), 2.1, 62),
+        TideReading(
+            1.23, "RISING", "HIGH", now + timedelta(hours=2), 2.1, 62,
+            (TideSample(now - timedelta(hours=1), 48), TideSample(now, 62), TideSample(now + timedelta(hours=1), 75)),
+        ),
         WaveReading(1.6, 12.0, 310.0, now),
         WindReading(8.0, 90.0, now),
         now,
@@ -24,6 +27,7 @@ def test_contract_is_bilingual_neutral_and_android_compatible():
     assert payload["schemaVersion"] == 1
     assert payload["tide"]["next"]["type"] == "HIGH"
     assert payload["tide"]["levelPercent"] == 62
+    assert payload["tide"]["series"][1]["levelPercent"] == 62
     assert payload["swell"]["periodSeconds"] == 12.0
     assert len(payload["attribution"]) == 3
 
@@ -36,6 +40,7 @@ def test_tide_analysis_finds_next_high():
     assert result.next_type == "HIGH"
     assert result.next_at == times[2]
     assert result.level_percent == 0
+    assert [sample.level_percent for sample in result.series] == [0, 0]
 
 
 def test_demo_generates_every_catalogue_spot(tmp_path):
