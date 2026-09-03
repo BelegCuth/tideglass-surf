@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - "pipeline/static/**"
+      - "pipeline/spots.json"
       - "pipeline/tideglass_pipeline/generate.py"
   schedule:
     - cron: "17 */6 * * *"

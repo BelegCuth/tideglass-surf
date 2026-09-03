@@ -12,7 +12,7 @@ Keep the three attributions visible in the app/store listing and comply with pro
 
 ## JSON contract
 
-Each `public/v1/spots/{id}.json` contains schema version, spot, generation/valid timestamps, current tide and trend, next high/low, a 19-point hourly tide series covering −6 h…+12 h, swell and wind. `public/v1/index.json` contains the 48-spot catalogue. Water temperature is intentionally `null` until a compatible open source is added.
+Each `public/v1/spots/{id}.json` contains schema version, spot, generation/valid timestamps, current tide and trend, next high/low, a 19-point hourly tide series covering −6 h…+12 h, swell and wind. `public/v1/index.json` contains the 51-spot catalogue. Water temperature is intentionally `null` until a compatible open source is added.
 
 ## Operations
 

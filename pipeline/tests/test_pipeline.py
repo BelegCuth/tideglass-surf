@@ -48,8 +48,8 @@ def test_demo_generates_every_catalogue_spot(tmp_path):
     now = datetime(2026, 1, 1, 12, tzinfo=timezone.utc)
     count = generate(spots_path, tmp_path, tmp_path / "models", demo=True, now=now)
     spots = load_spots(spots_path)
-    assert count == 48
-    assert validate_public(tmp_path, now=now + timedelta(hours=1)) == 48
+    assert count == 51
+    assert validate_public(tmp_path, now=now + timedelta(hours=1)) == 51
     assert len(list((tmp_path / "v1" / "spots").glob("*.json"))) == len(spots)
     assert json.loads((tmp_path / "v1" / "spots" / "mundaka.json").read_text())["spot"]["id"] == "mundaka"
     privacy = (tmp_path / "privacy" / "index.html").read_text(encoding="utf-8")
