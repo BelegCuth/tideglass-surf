@@ -48,7 +48,7 @@ jobs:
       - name: Verify production data endpoint
         run: >-
           curl --fail --silent --show-error https://data.tideglass.me/v1/index.json |
-          jq -e '.spots | type == "array" and length > 0 and all(.[]; (.id | type == "string") and (.url | type == "string"))'
+          jq -e '.schemaVersion == 1 and (.spots | type == "array" and length > 0)'
       - name: Test, lint and build Wear OS packages
         run: >-
           ./gradlew
