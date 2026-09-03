@@ -46,7 +46,9 @@ jobs:
           java-version: "21"
       - uses: gradle/actions/setup-gradle@v6
       - name: Verify production data endpoint
-        run: curl --fail --silent --show-error https://data.tideglass.me/v1/index.json | jq -e '.spots | length == 51'
+        run: >-
+          curl --fail --silent --show-error https://data.tideglass.me/v1/index.json |
+          jq -e '.spots | type == "array" and length > 0 and all(.[]; (.id | type == "string") and (.url | type == "string"))'
       - name: Test, lint and build Wear OS packages
         run: >-
           ./gradlew
