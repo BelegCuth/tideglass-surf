@@ -9,6 +9,7 @@ on:
       - "pipeline/static/**"
       - "pipeline/spots.json"
       - "pipeline/tideglass_pipeline/generate.py"
+      - "marine-provider/src/main/java/com/tideglass/surf/provider/data/SpotCatalog.kt"
   schedule:
     - cron: "17 */6 * * *"
 

@@ -35,7 +35,7 @@ The watch face exposes six editable complication slots. A separate Wear OS app s
 | Surf | SHORT_TEXT | 1.6m 12s NW |
 | Wind | SHORT_TEXT | 8kn E |
 
-The provider selects the nearest of 48 worldwide launch spots or keeps a manually pinned travel spot, caches successful responses for 30 minutes, falls back to stale data if the network fails, and never implies navigational or safety-grade accuracy. One language-neutral JSON contract supports both English and Spanish clients.
+The provider selects the nearest of 51 worldwide launch spots or keeps a manually pinned travel spot, caches successful responses for 30 minutes, falls back to stale data if the network fails, and never implies navigational or safety-grade accuracy. One language-neutral JSON contract supports both English and Spanish clients.
 
 ## Production data architecture
 

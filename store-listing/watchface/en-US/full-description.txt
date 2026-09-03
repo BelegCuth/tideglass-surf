@@ -8,7 +8,7 @@ FEATURES
 • Time of the next high or low tide
 • Swell height, period and direction
 • Wind speed and direction
-• 48 curated surf spots across Europe, Africa, the Americas, Asia and Oceania
+• 51 curated surf spots across Europe, Africa, the Americas, Asia and Oceania
 • Automatic nearest-spot selection or a manually pinned travel spot
 • English and Spanish
 • Low-power ambient display

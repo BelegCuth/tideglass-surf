@@ -8,7 +8,7 @@ FUNCIONES
 • Hora de la próxima pleamar o bajamar
 • Altura, periodo y dirección del oleaje
 • Velocidad y dirección del viento
-• 48 spots de surf seleccionados en Europa, África, América, Asia y Oceanía
+• 51 spots de surf seleccionados en Europa, África, América, Asia y Oceanía
 • Selección automática del spot más cercano o un destino fijado manualmente
 • Inglés y español
 • Pantalla ambiente de bajo consumo
